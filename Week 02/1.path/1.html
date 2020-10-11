@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>path</title>
+</head>
+<style>
+  .spa{
+    display: inline-block;
+    width: 6px;
+    height:6px;
+    background-color: gray;
+    border-bottom: solid 1px white;
+    border-right: solid 1px white;
+    vertical-align: middle;
+  }
+  #container{
+    width: 701px;
+  }
+</style>
+<body>
+<div id="container"></div>
+<button onclick="localStorage['map']=JSON.stringify(map)">save</button>
+</body>
+<script>
+    function show(){
+      let container=document.getElementsByTagName('div')[0]
+      // let container=document.getElementById('container')
+      container.innerHTML=''
+      for(let i=0;i<10;i++){
+        for(let j=0;j<10;j++){
+          let innerhtml=document.createElement('div');
+          innerhtml.classList.add('spa');
+          container.appendChild(innerhtml)
+        }
+        container.appendChild(document.createElement('br'))
+      }
+    }
+    show()
+</script>
+</html>
