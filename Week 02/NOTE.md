@@ -21,5 +21,10 @@
  sleep(30)
       container.children[y*100+x].style.backgroundColor='green';
 ```
-
-brew cask install stretchly
+使用当前元素等于最后一个元素（O(1)），代替splice(),这个O(n)操作
+然后返回当前的min值
+```js
+ this.data[minIndex] = this.data[this.data.length - 1];
+      this.data.pop()
+      return min;
+```
