@@ -34,27 +34,27 @@
   class Sorted {
     constructor(data, compare) {
       this.data = data.slice();
-      this.compare = compare || ((a, b) => a - b)
+      this.compare = compare||((a, b) => a - b)
     }
     take() {
-      if (!this.data.length) {
-        return
-      }
+      if (!this.data.length) 
+        return;
+      
       let min = this.data[0];
       let minIndex = 0;
 
       for (let i = 1; i < this.data.length; i++) {
         if (this.compare(this.data[i], min) < 0) {
-          min = this.data[i]
-          minIndex = i
+          min = this.data[i];
+          minIndex = i;
         }
       }
       this.data[minIndex] = this.data[this.data.length - 1];
-      this.data.pop()
+      this.data.pop();
       return min;
     }
-    give(value) {
-      this.data.push(value)
+    give(v) {
+      this.data.push(v)
     }
   }
   let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0);
@@ -102,7 +102,7 @@
 
   async function findPath(map, start, end) {
     let table = Object.create(map)
-    let queue = [start];
+    let queue = new Sorted([start], (a, b) => distance(a) - distance(b))
 
 
     async function install(x, y, pre) {
@@ -112,15 +112,19 @@
       if (table[y * 100 + x]) {
         return;
       }
-      // await sleep(1)
+      await sleep(5)
       container.children[y * 100 + x].style.backgroundColor = 'green';
       table[y * 100 + x] = pre;
-      queue.push([x, y])
+      queue.give([x, y])
 
     }
 
-    while (queue.length) {
-      let [x, y] = queue.shift();
+    function distance(point) {
+      return (point[0] - end[0]) ** 2 + (point[1] - end[1]) ** 2
+    }
+
+    while (queue.data.length) {
+      let [x, y] = queue.take();
       console.log(x, y)
 
       if (x === end[0] && y === end[1]) {
@@ -128,7 +132,7 @@
         while (x != start[0] || y != start[1]) {
           path.push(map[y * 100 + x]);
           [x, y] = table[y * 100 + x]
-          await sleep(30);
+          // await sleep(5);
           container.children[y * 100 + x].style.backgroundColor = 'purple'
         }
         return path
