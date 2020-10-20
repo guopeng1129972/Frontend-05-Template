@@ -112,7 +112,7 @@
       if (table[y * 100 + x]) {
         return;
       }
-      await sleep(5)
+      await sleep(1)
       container.children[y * 100 + x].style.backgroundColor = 'green';
       table[y * 100 + x] = pre;
       queue.give([x, y])
@@ -132,7 +132,7 @@
         while (x != start[0] || y != start[1]) {
           path.push(map[y * 100 + x]);
           [x, y] = table[y * 100 + x]
-          // await sleep(5);
+          await sleep(30);
           container.children[y * 100 + x].style.backgroundColor = 'purple'
         }
         return path

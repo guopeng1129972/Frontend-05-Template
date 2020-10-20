@@ -28,3 +28,9 @@
       this.data.pop()
       return min;
 ```
+使用Array(x).fill(0)创建一个默认值为0的x个的数组
+使用localStorage存储一个map对象，
+通过JSON.parse()转换成对象使用
+```js
+let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0);
+```
