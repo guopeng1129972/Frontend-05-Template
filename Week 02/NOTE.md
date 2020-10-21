@@ -34,3 +34,8 @@
 ```js
 let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0);
 ```
+
+js表示平方，比如平方就是**2 立方就是**3
+```js
+return (point[0] - end[0]) ** 2 + (point[1] - end[1]) ** 2
+```
