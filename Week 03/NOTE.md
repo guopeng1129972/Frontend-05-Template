@@ -15,7 +15,7 @@ let regexp=/([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\-)|(\+)/g
     while(true){
      result=regexp.exec(source);
 ```
-当我们需要返回一个队列的时候 可以使用yield token;
+当我们需要返回一个队列的时候 可以使用yield token,
 ```js
 ```
 EOF是一个计算机术语，为End Of File的缩写，
