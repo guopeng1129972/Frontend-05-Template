@@ -39,3 +39,21 @@ charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返�
 
 KMP算法的原理或者说主题思想就是降低暴力比较是的重复次数，
 如何降低 就是通过对比目标字符串本身的重复性，从而确定回退比较的比较节点
+
+##for循环的第二个是判断条件，
+之前一直没这么写过，一直都是<xxx.length;这种，算是一个新的理解吧
+    //pattern[i]不是*，只要不匹配source[i],并且也不是？ 直接返回false
+    for (i = 0; pattern[i] !== '*'; i++) {
+      if (pattern[i] !== source[i] && pattern[i] !== '?') {
+        return false
+      }
+    }
+    lastIndex=i;
+##利用正则将？匹配为\\s\\S
+let reg = new RegExp(subPattern.replace(/\?/g, '[\\s\\S]'), 'g');
+
+   if(!reg.exec(source)){
+        return false
+      }
+##使用带?的KMP算法完成正则部分的匹配
+
