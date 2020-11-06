@@ -28,3 +28,5 @@ vue3 就用 proxy 重写了双向数据绑定
         callbocks.get(reactivity[0]).get(reactivity[1]).push(callbock)
       }
 ```
+###5. proxy与双向绑定 | 优化reactive
+处理 po.a.b的调用显示问题
