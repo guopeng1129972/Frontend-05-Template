@@ -11,3 +11,20 @@ let po = new Proxy(object, {
     })
 ```
 vue3 就用 proxy 重写了双向数据绑定
+
+###遍历Map的一个应用
+```js
+    let callbocks = new Map()
+    let usedReactivties = []
+    //...
+      console.log(usedReactivties)
+      for (let reactivity of usedReactivties) {
+        if (!callbocks.has(reactivity[0])) {
+          callbocks.set(reactivity[0], new Map());
+        }
+        if (!callbocks.get(reactivity[0]).has(reactivity[1])) {
+          callbocks.get(reactivity[0]).set(reactivity[1], [])
+        }
+        callbocks.get(reactivity[0]).get(reactivity[1]).push(callbock)
+      }
+```
