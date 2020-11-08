@@ -50,3 +50,31 @@ vue3 就用 proxy 重写了双向数据绑定
 ####三个事件的触发顺序
 若在同一个元素上按下并松开鼠标左键，会依次触发mousedown、mouseup、click，前一个事件执行完毕才会执行下一个事件
 若在同一个元素上按下并松开鼠标右键，会依次触发mousedown、mouseup，前一个事件执行完毕才会执行下一个事件，不会触发click事件
+
+##8. 使用Range实现DOM精确操作 | 正常流里的拖拽
+cssOM
+
+
+###取消选中事件
+```js
+document.addEventListener('selectstart', event => event.preventDefault())
+```
+
+###获取range位置的方法
+```js
+let ranges = [];
+    let container = document.getElementById('container')
+    for (let i = 0; i < container.childNodes[0].textContent.length; i++) {
+      let range = document.createRange();
+      //设置range的插入起始点和终点
+      range.setStart(container.childNodes[0], i)
+      range.setEnd(container.childNodes[0], i)
+
+      console.log(range.getBoundingClientRect())
+      ranges.push(range)
+    }
+```
+####getBoundingClientRect() 的用法
+getBoundingClientRect()方法用来获取页面中某个元素的左、上、右、下分别相对浏览器视窗的位置，
+返回的是一个矩形对象，包括四个属性，分别是left 、top、right、bottom。
+分别表示元素各边与页面上边和左边的距离。
