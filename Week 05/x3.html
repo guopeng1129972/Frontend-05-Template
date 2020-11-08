@@ -8,7 +8,12 @@
 </head>
 
 <body>
+  <input type="range" id="r" min="1" max="255" />
+  <input type="range" id="g" min="1" max="255" />
+  <input type="range" id="b" min="1" max="255" />
+  <div style="width: 100px; height: 100px;" id="color">
 
+  </div>
   <script>
     let callbocks = new Map()
     let reactivties = new Map()
@@ -17,11 +22,32 @@
       a: {
         b: 3
       },
-      b: 2
+      b: 2,
+      r: 1,
+      g: 2,
+      b: 3
     }
     let po = reactive(object);
     effect(() => {
-      console.log(po.a.b)
+      document.getElementById('r').value = po.r;
+      //这样也可以，不用那么多effect
+      // document.getElementById('b').value=po.b;
+      //  document.getElementById('g').value=po.g;
+      console.log(po.r)
+    })
+    effect(() => {
+      document.getElementById('g').value = po.g;
+      console.log(po.g)
+    })
+    effect(() => {
+      document.getElementById('b').value = po.b;
+      console.log(po.b)
+    })
+    document.getElementById('r').addEventListener('input', event => po.r = event.target.value)
+    document.getElementById('g').addEventListener('input', event => po.g = event.target.value)
+    document.getElementById('b').addEventListener('input', event => po.b = event.target.value)
+    effect(() => {
+      document.getElementById('color').style.background = `rgb(${po.r},${po.g},${po.b})`
     })
 
     function effect(callbock) {
