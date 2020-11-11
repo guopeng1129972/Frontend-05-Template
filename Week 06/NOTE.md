@@ -150,3 +150,78 @@ Identifier <br>Literal | Atom<br>Operator<br>Punctuatr | Expression<br>Keyword<b
 
 *协变与逆变： 
 https://jkchao.github.io/typescript-book-chinese/tips/covarianceAndContravariance.html
+
+# 7. JS类型 | Number
+
+Atom(字面值) | Runtiome(运行时) |
+----------- | --------------- |
+
+## Types
+* Number
+* String
+* boolean
+* undefind
+* Null
+* Symbol
+* Object
+* BigInt
+### BigInt
+JS 提供Number.MAX_SAFE_INTEGER常量来表示 最大安全整数，Number.MIN_SAFE_INTEGER常量表示最小安全整数：
+```js
+const minInt = Number.MIN_SAFE_INTEGER;
+console.log(minInt);         // → -9007199254740991
+console.log(minInt - 5);     // → -9007199254740996
+// notice how this outputs the same value as above
+console.log(minInt - 4);     // → -9007199254740996
+```
+使用BigInt，应用程序不再需要变通方法或库来安全地表示Number.MAX_SAFE_INTEGER和Number.Min_SAFE_INTEGER之外的整数。 
+现在可以在标准JS中执行对大整数的算术运算，而不会有精度损失的风险。
+要创建BigInt，只需在整数的末尾追加n即可。比较:
+```js
+console.log(9007199254740995n);    // → 9007199254740995n
+console.log(9007199254740995);     // → 9007199254740996
+```
+### Symbol
+用于对象的属性或者方法
+1.属性唯一
+2.不能获取到当前对象的属性节点，如果是string，那就会提取的到
+
+### Null
+###### 这个我之前看过，底层的typeof是个if else if 的判断 如果当前的类型不属于number string undefind ... 将会返回object
+```js
+typeof Null // object
+```
+
+## Number
+IEEE 754 Double Float
+* Sign(1) 
+符号位
+* Exponent(11)
+11位指数位
+1位表示指数的正负
+基准值为1+10个0，比这个值大为正
+10位表示指数的范围 2的10次方 2048
+* Fraction(55)
+55位精度位
+2的55次方的值
+首位为1
+2的54次方的值
+
+### Number-Grammar(语法)
+* DecimalLiteral(十进制)
+```js
+0
+0.
+.2
+1e3 //1000 这么看的话 e就相当于0了呀  
+```
+* BinarylntegerLiteral(二进制)
+0b111
+* OctallntegerLiteral(八进制)
+0o10
+* HexlntegerLiteral(十六进制)
+0xff
+```js
+0.toString() //报错
+0 .toString() // 可以处理
+```
