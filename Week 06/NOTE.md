@@ -225,3 +225,56 @@ IEEE 754 Double Float
 0.toString() //报错
 0 .toString() // 可以处理
 ```
+# 8. JS类型 | String
+
+## Sting
+* Character  
+a
+* Code Point
+97
+* Encoding
+0110 0007
+
+### 编码方式 String- Code Point
+ASCII
+0-127
+Unicode
+000-FFF
+UCS
+0000-FFFF
+GB
+  GB2312
+
+### String- Encoding
+编码方式
+UTF8
+8位表示一个字符
+UTF16
+8位表示一个字符
+
+### String- Homework
+###### 不会
+```js
+function UTF8_Encodeing(string){
+  //return new Buffer();
+}
+```
+### String- Grammar
+"abc"
+'abc'
+`abc`
+#### String- Grammar Chanllenge
+A regular Expression to match string literal
+
+###### 不会，没听懂问题是要干啥，答案也看不懂
+特殊的转义符号
+```js
+bfnrtv    //几种特殊字符
+2028 2029 //特殊换行符
+\\x \\u //转义规则
+```
+
+#### String- Grammar Template
+```js
+`ab${x}abc${y}abc`
+```
