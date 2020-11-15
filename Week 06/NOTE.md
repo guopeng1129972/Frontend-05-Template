@@ -278,3 +278,18 @@ bfnrtv    //几种特殊字符
 ```js
 `ab${x}abc${y}abc`
 ```
+# 9. JS类型 | 其他类型
+## boolean
+true false 都是关键字
+## Null undefind
+Null 是关键字
+undefind 是全局变量（就是可以被赋值）
+
+可以使用void 0 代替undefined
+因为void这个运算符 是个关键字，这不同于undefind
+void 这个关键字不管后面跟什么 都会把他表达式的值变成undefined
+```js
+void 0 //undefind
+void false //undefind
+void true //undefind
+```
