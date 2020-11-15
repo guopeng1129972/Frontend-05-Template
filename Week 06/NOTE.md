@@ -262,7 +262,7 @@ function UTF8_Encodeing(string){
 ### String- Grammar
 "abc"
 'abc'
-`abc`
+\`abc`
 #### String- Grammar Chanllenge
 A regular Expression to match string literal
 
@@ -309,3 +309,56 @@ void true //undefind
 * 在设计对象的状态和行为时，我们总是遵循”行为改变状态“的原则。
 那么咬就是狗的行为，改变人的状态
 
+# 11. JS对象 | JS中的对象
+* js中的对象只有两个要素，一个是proto,一个是他的属性；
+* js中的属性可以用来描述状态，也可以用来描述行为（函数可以作为属性）
+* 通过内存地址来表示唯一性
+
+Symbol 实现了访问对象上的属性的权限控制
+
+Data property 和 Accessor Property 都是对象的特性
+Data property | Accessor Property |
+------------- | ----------------- |
+`[[value]]` | get|
+writable | set |
+enumerable | enumerable |
+configurable | configurable | 
+
+
+### Data property（数据属性）
+`[[value]]` 具体的值 writable（可写） enumerable（可枚举） configurable（可配置）
+* 当设置Data property的writable为false时(通过.运算符不可更改)，仍然可以通过defineProperty修改writable和其他内容
+* 当设置Data property的configurable（可配置）为false时，writable enumerable configurable `[[value]]` 不可修改
+### Accessor Property（访问器属性）
+
+原型链的好处？
+每个对象只需要描述自己与原型对象的区别即可
+
+## Object API - Grammar
+* {},.,[],Object.defineProperty
+这组API 基于语法 去创建对象，访问属性，定义新的属性，改变属性的特征值
+* Object.create,Object.setPrototpeOf,Object.getPrototypeOf
+基于原型 描述对象的方法 创建 设置 获取 属性
+* new,class,extends
+基于分类的方式描述对象
+* new,function,prototype
+
+## Function Object
+```js
+typeof Function //"function"
+```
+* Function对象是带call方法的对象，`[[call]]`方法为内置对象
+* js中 双括号表示内置属性`[[call]]`,内置对象的特点就是无法在js中访问，<br>可以在调用JS的引擎中（C或C++）是可以调用的
+## Host Object
+Host Object 我觉得就是可以理解为宿主对象;
+也就是在console中不能看到函数体内容的对象方法;
+浏览器对象为window；
+那也就是说for of window 返回为`[native code]`的方法名;
+
+但是 window is not iterable
+setInterval
+setTimeout
+Window
+CSS族
+CSSAnimation
+...
