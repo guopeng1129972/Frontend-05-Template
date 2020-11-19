@@ -202,3 +202,58 @@ return 10;
 - `[[target]]`:label
 
 语句完成记录结果
+
+# 4. JS语句 | 简单语句和复合语句
+## 简单语句
+- ExpressionStatement（完成运算 表达式 let a=1;）
+- EmptyStatement(空语句 ;)
+- DebuggerStatement(调试语句 debugger;)
+- ThrowStatement(控制语句 抛出异常)
+- ContinueStatement（控制语句 结束当前循环）
+  - 跳出当前循环 
+- BreakStatement（控制语句 结束所有循环）
+  - 跳出循环语句
+- ReturnStatement控制语句）
+  - 函数中使用 返回函数结果
+## 复合语句
+- BlockStatement()
+{
+  //简单语句
+}
+  - `[[type]]`:normal
+  - `[[value]]`:--
+  - `[[target]]`:--
+- IfStatement
+if()
+- SwitchStatement(不建议使用)
+shitch(){}
+- IterationStatement（循环语句）
+  - while(x)x
+  - do x while (x)
+  - for(xx;x;x)x
+  - for(xx in x)x
+  - for(xx of x)x
+xx表示可以定义作用域 var let 
+  - for await(of) 
+    - Async Generator
+- WithStatement
+with
+- LabelledStatement
+lable 简单语句
+lable 复合语句
+- TryStatement
+try后必须跟{}不能省略
+  - `[[type]]`:return 
+  - `[[value]]`:--
+  - `[[target]]`:label
+
+try{x} 
+catch(xx) {x} 
+finally{x}
+
+- return 语句不能打断try的结构
+### 标签 循环 break continue 
+break label 可以跳出多层循环节省逻辑
+  - `[[type]]`:break continue 
+  - `[[value]]`:--
+  - `[[target]]`:label
