@@ -257,3 +257,31 @@ break label 可以跳出多层循环节省逻辑
   - `[[type]]`:break continue 
   - `[[value]]`:--
   - `[[target]]`:label
+
+# 5. JS语句 | 声明
+
+- FunctionDeclaration
+- GeneratorDeclaration
+- AsyncFunctionDeclaration
+- AsyncGeneratorDeclaration
+- VariableStatement(变量声明)
+有声明的作用也有实际执行计算的能力
+
+  - function
+  - function*
+  - async function
+  - async function*
+  - var
+    - var会先声明，但是没有赋值
+- ClassDeclaration
+- LexicalDeclaration
+const let
+
+## 预处理（pre-process）
+
+预处理是指在一段代码执行前js引擎会对代码本身做一次预先处理
+
+var 无论写在哪，都会被提升到当前的ife顶端定义
+## 作用域
+var 作用域 就在他所在的函数体
+const 在他所在的{}里
