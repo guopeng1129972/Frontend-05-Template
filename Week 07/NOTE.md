@@ -182,3 +182,23 @@ console.log("x"+o)
 | Boolean | new Boolean(false) | false
 | Symbol | new Object(Symbol('a')) | Symbol('a')
 可以通过typeof区分到底是包装后的对象还是包装前的值
+
+# 3. JS语句 | 运行时相关概念
+
+## Statement(语句)
+- 简单语句
+- 组合语句
+- 声明
+
+### Completion Record(完成记录)
+用于存储语句的完成结果
+example
+if(x==1)
+return 10;
+用于描述语句的执行结果：是否返回了？返回值是多少？等..
+
+- `[[type]]`:normal,break,continue,return,or throw
+- `[[value]]`:基本类型
+- `[[target]]`:label
+
+语句完成记录结果
