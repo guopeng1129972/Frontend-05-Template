@@ -136,3 +136,49 @@ in
 <font color=#FF0000>
 Logical Conditional 都有短路优先原则，即前面的判断条件可以判断出结果就不会进行后面的运算
 </font>
+
+# 2. JS表达式 | 类型转换
+
+## Type Convertion(类型转换)
+ | | Number | String | Boolean | Undefind | Null | Object | Symbol |
+ |-|------- | ------ | ------- | -------- | ---- | ------ | ------ |
+number | - ||0 false | × | × | Boxing | × |
+String ||-|"" false | × | × | Boxing | × |
+Boolean |true 1<br>false 0|'true'<br>'false'|-| × | × | Boxing | × |
+Undefind |NAN|'Undefind'|false| - | × |  ×| × |
+Null |0|'Null'|false| × | × |  - | × |
+Symbol |× |× |× | × | × |  Boxing | × |
+
+* `-`:自己转自己
+* × :不能转
+number 只有
+
+### Boxing
+* ToPremitive
+* to String vs valueOf
+* Symbol.toPrimitive
+
+* +会优先调用valueOf；
+* o作为属性名时，会优先调用他的toString方法
+* 位运算一定会先转number，转number就一定会用到valueof
+* 一定会用到str的时候，一定会先调用toString
+example
+```js
+var o{
+  toString(){return "2"}
+  valueOf(){return 1},
+  [Symbol.toPrimitive](){return 3}
+}
+
+var x={}
+x[o]=1
+
+console.log("x"+o)
+```
+| 类型 | 对象 | 值 |
+|---- | -----|----|
+| Number | new Number(1) | 1
+| String | new String('a') | 'a'
+| Boolean | new Boolean(false) | false
+| Symbol | new Object(Symbol('a')) | Symbol('a')
+可以通过typeof区分到底是包装后的对象还是包装前的值
