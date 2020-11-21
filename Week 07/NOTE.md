@@ -285,3 +285,37 @@ var 无论写在哪，都会被提升到当前的ife顶端定义
 ## 作用域
 var 作用域 就在他所在的函数体
 const 在他所在的{}里
+
+# 6. JS结构化 | 宏任务和微任务
+
+## JS执行粒度（运行时）
+- 宏任务
+宏任务就是 传给JS引擎的任务
+JS最大粒度的范围
+- 微任务（Promise）
+微任务就是在JS引擎内部的任务
+只有Promise才会产生微任务
+- 函数调用（Execution Context）
+- 语句/声明（Completion Record）
+- 表达式（Reference）
+- 直接量/变量/this ....
+
+### 宏任务(MacroTask) 微任务(MicroTask(job)) 与JS引擎(JS Engine)的关系
+![宏任务(MacroTask) 微任务(MicroTask(job)) 与JS引擎(JS Engine)的关系](img/1.jpg)
+
+一段代码传给JS Engine；
+按照语法JS Engine把代码分为各个MicroTask(job)；
+这个过程就是一个MacroTask；
+
+#### 补充一个OC的知识链接，有时间了看看
+- [JavaScriptCore 与 Objective-C](http://blog.iderzheng.com/introduction-to-ios7-javascriptcore-framework/)
+- [Objective-c与javascript交互](https://blog.csdn.net/aldridge1/article/details/18079915)
+
+
+
+### 事件循环
+
+get code -> execute ->wait(等待锁) ->get code ...
+
+浏览器的wait（用户输入等IO操作或者其他）
+node环境的wait(网卡网络信息等)
