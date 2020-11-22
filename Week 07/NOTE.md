@@ -319,3 +319,93 @@ get code -> execute ->wait(等待锁) ->get code ...
 
 浏览器的wait（用户输入等IO操作或者其他）
 node环境的wait(网卡网络信息等)
+
+# 7. JS结构化 | JS函数调用
+
+在函数调用中主要是以stark（栈）的形式存储
+![JS函数调用](img/2.jpg)
+- Execution Context(执行上下文)
+- Execution Context Stack(执行上下文栈)
+- Running Execution Context(执行上下文栈栈顶)
+
+三者之间的关系为：Execution Context组成
+Execution Context Stack,栈顶的Execution Context
+称为Running Execution Context
+
+## Execution Context(执行上下文)
+Execution Context(执行上下文) 包括7个元素，一般不会全部生效
+![ Execution Context(执行上下文)七个元素](img/3.jpg)
+- code evaluation state
+  - 用于async和generator函数:代码执行到何处的保存信息
+- Function
+  - 由Function初始化
+- Script or Module
+  - 只能用一个，表示在Script中的代码还是Module中的代码
+- Generator
+  - 只有Generator函数创建的Generator Execution Context
+- Realm
+  - 保存着所有的内置对象的Execution Context
+- LexicalEnvironment（保存变量 let）
+  - 声明代码中所需要访问的环境Execution Context
+- VariableEnvironment（保存变量 var）
+  - 声明代码中所需要访问的环境Execution Context
+#### Execution Context(执行上下文)与Generator Execution Context(执行上下文)
+Generator Execution Context比Execution Context多了一个Generator 
+## LexicalEnvironment（保存变量 let)
+在2018版本里几乎保存了所有的执行时候的东西
+- this
+- new.target
+object
+- super
+- 变量
+## VariableEnvironment（保存变量 var）
+仅处理var声明的
+## Environment Record()
+
+- Environment Record
+  - Declarative Environment Record
+    - Function Environment Record
+    - moduel Environment Record
+  - Global Environment Record
+  - Object Environment Record
+## Function - Closure
+```js
+var y=2;
+function foo2(){
+  console.log(y);
+}
+
+export foo2;
+```
+执行上下文为Function处理，
+Environment Record记录值，code为函数代码
+会将其保存到当前函数的Environment Record属性上去
+```js
+Function:foo2
+Environment Record: y:2
+Code: console.log(2)
+```
+
+```js
+var y=2;
+function foo2(){
+  var z=3;
+  return ()=>{
+    console.log(y,z);
+  }
+}
+var foo3=foo2();
+export foo3;
+```
+```js
+Function:foo3
+Environment Record: z:2 this:global
+- Environment Record: y:2
+Code: console.log(y,z) 
+```
+
+## Realm
+
+- 在JS中，函数表达式和对象直接量均会创建对象。
+- 使用.做隐式转换也会创建对象。
+- 这些对象也有原型，如果我们没有Realm，就不知道他们的原型是什么。
