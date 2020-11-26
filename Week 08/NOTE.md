@@ -70,3 +70,32 @@ white(input){
 findString.js 下的 基本就是这样的了
 # 6. 状态机 | 使用状态机处理字符串（一）
 # 7. 状态机 | 使用状态机处理字符串（二）
+
+# 8. HTTP请求 | HTTP的协议解析
+
+## ISO-OSI七层网络模型
+| 网络层   | 协议  | 请求  |
+| ------- | ---- | ---- |
+|应用|http|require('http')|
+|表示|http|require('http')|
+|会话|http|require('http')|
+|传输|tcp|require('net')|
+|网络|internet(IP)|require('net')|
+|数据链路|4g/5g/wifi|require('net')|
+|物理层|4g/5g/wifi|require('net')|
+
+## TCP/IP的一些基础知识
+- 流
+- 端口
+- require('net')
+- 包
+- IP地址
+- libnet/libpcap
+  - libnet 构造IP包 发送
+  - libpcap 从网卡抓IP包 接收
+    - 使用IP底层协议抓到的包，可能不是发到本机的包
+
+## HTTP
+- Request
+- Response
+一个Request对应一个Response
