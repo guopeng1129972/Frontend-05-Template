@@ -1,0 +1,100 @@
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+
+
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "kmp",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 06/trie/kmp.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "UTF8_Encodeing",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 06/UTF8_Encodeing.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "dog_and_person",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 06/dog_and_person.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "StringToNUmber",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 07/StringToNUmber.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "NumberToString",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 07/NumberToString.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "findString",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 08/findString.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "match",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 08/match.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "match2",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 08/match2.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "match2T",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 08/match2T.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "match3",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 08/match3.js"
+    },
+  ]
+}
