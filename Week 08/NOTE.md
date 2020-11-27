@@ -109,3 +109,16 @@ field=1aaa&code=x   body
 - `\r\n` 作为HTTP协议中的换行符
 - 文本型协议（都是字符串）;
 - body之前是一个换行
+
+# 10. HTTP请求 | 实现一个HTTP的请求
+
+<font color=#FF0000>从使用开始设计接口模式，这个之前也在一篇博客上看见说过这点</font> 
+
+## 第一步HTTP请求总结
+
+- 设计一个HTTP请求的类
+Request
+- Content-type 是一个必要的字段，要有默认值
+- body是KV结构
+- 不同的content-type影响body的格式
+

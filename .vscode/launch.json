@@ -58,7 +58,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 08/findString.js"
+      "program": "${workspaceFolder}/Week 08/1/findString.js"
     },
     {
       "type": "pwa-node",
@@ -67,7 +67,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 08/match.js"
+      "program": "${workspaceFolder}/Week 08/1/match.js"
     },
     {
       "type": "pwa-node",
@@ -76,7 +76,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 08/match2.js"
+      "program": "${workspaceFolder}/Week 08/1/match2.js"
     },
     {
       "type": "pwa-node",
@@ -85,7 +85,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 08/match2T.js"
+      "program": "${workspaceFolder}/Week 08/1/match2T.js"
     },
     {
       "type": "pwa-node",
@@ -94,7 +94,16 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 08/match3.js"
+      "program": "${workspaceFolder}/Week 08/1/match3.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "client",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 08/2/1/client.js"
     },
   ]
 }
