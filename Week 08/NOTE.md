@@ -122,3 +122,22 @@ Request
 - body是KV结构
 - 不同的content-type影响body的格式
 
+# 11. HTTP请求 | send函数的编写，了解response格式
+
+## 第二步Send函数总结
+
+- 在Request的构造器中收集必要的信息
+- 设计一个send函数，把请求真实发送到服务器
+- send函数应该是异步的，所以返回Promise
+
+Request
+ HTTP/1.1 200 OK                  status line
+ Content-Type:text/html           headers
+ Date:
+ Connection:keep-alive
+ Transfer-Encoding:chunked
+
+ 26                                body
+ ```html
+ <html><body>Hello world</body></html>
+ ```
