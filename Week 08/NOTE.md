@@ -99,3 +99,13 @@ findString.js 下的 基本就是这样的了
 - Request
 - Response
 一个Request对应一个Response
+文本型协议（都是字符串）;
+POST /HTTP/1.1     Request line
+HOST:127.0.0.1    headers
+Content-Type:app/
+
+field=1aaa&code=x   body
+
+- `\r\n` 作为HTTP协议中的换行符
+- 文本型协议（都是字符串）;
+- body之前是一个换行
