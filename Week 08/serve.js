@@ -7,7 +7,8 @@ http.createServer((request, response) => {
   }).on('data', (chuck) => {
     body.push(chuck.toString());
   }).on('end', () => {
-    body = Buffer.concat(body).toString();
+    // body = Buffer.concat(body).toString();
+    body = (Buffer.concat([ Buffer.from(body.toString()) ])).toString();
     console.log(body);
     response.writeHead(200, {
       'Content-type': 'text/html'

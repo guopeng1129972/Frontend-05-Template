@@ -141,3 +141,38 @@ Request
  ```html
  <html><body>Hello world</body></html>
  ```
+
+#  12. HTTP请求 | 发送请求
+
+## 第三步发送请求
+- 设计支持已有的connection或者自己新建connection
+- 收到数据传送给parser
+- 根据parser的状态resolve Promise
+确实会报错
+第一个是在client.js
+```bash HTTP/1.1 400 Bad Request
+Connection: close ```
+
+原因就是只写\r 是不可以的，HTTP 协议规定，一定要使用\r\n.
+可以试试这个
+```js
+return `${this.method} ${this.path} HTTP/1.1\r\n${Object.keys(this.headers)
+  .map((key) => `${key}: ${this.headers[key]}`)
+  .join("\r\n")}\r\n\r\n${this.bodyText}`; 
+```
+第二个在serve.js
+会报错
+```bash
+buffer.js:538
+      throw new ERR_INVALID_ARG_TYPE(
+      ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "list[0]" argument must be one of type Buffer or Uint8Array. Received type string
+```
+就是这块代码有问题
+```js body = Buffer.concat(body).toString();```
+原因是
+Buffer.concat()的api的入参类型是list: Uint8Array[]但是这块是string
+改成
+```js  body = (Buffer.concat([ Buffer.from(body.toString()) ])).toString();```
+就行了

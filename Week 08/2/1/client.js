@@ -18,12 +18,42 @@ class Request {
 
     this.headers['Content-Length'] = this.bodyText.length;
   }
-  send() {
+  send(connection) {
     return new Promise((resolve, reject) => {
       const parser = new ResponseParser;
-      resolve('');
+      if (connection)
+        connection.write(this.toString());
+      else {
+        connection = net.createConnection({
+          host: this.host,
+          port: this.port
+        }, () => {
+          connection.write(this.toString());
+        });
+      }
+      connection.on('data', (data) => {
+        // console.log(data);
+        console.log(data.toString());
+        parser.receive(data.toString());
+        if (parser.isFinished) {
+          resolve(parser.response);
+          connection.end();
+        }
+      });
+      connection.on('error', (err) => {
+        reject(err);
+        connection.end();
+      });
     });
   }
+  toString(){
+    // 只写\r 是不可以的，HTTP 协议规定，一定要使用\r\n.
+return `${this.method} ${this.path} HTTP/1.1\r\n${Object.keys(this.headers)
+  .map((key) => `${key}: ${this.headers[key]}`)
+  .join("\r\n")}\r\n\r\n${this.bodyText}`; 
+    
+  }
+
 }
 
 class ResponseParser {
