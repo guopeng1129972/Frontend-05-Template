@@ -46,25 +46,76 @@ class Request {
       });
     });
   }
-  toString(){
+  toString() {
     // 只写\r 是不可以的，HTTP 协议规定，一定要使用\r\n.
-return `${this.method} ${this.path} HTTP/1.1\r\n${Object.keys(this.headers)
+    return `${this.method} ${this.path} HTTP/1.1\r\n${Object.keys(this.headers)
   .map((key) => `${key}: ${this.headers[key]}`)
-  .join("\r\n")}\r\n\r\n${this.bodyText}`; 
-    
+  .join("\r\n")}\r\n\r\n${this.bodyText}`;
+
   }
 
 }
 
 class ResponseParser {
-  constructor() {}
+  constructor() {
+    this.WAITING_STATUS_LINE = 0;
+    this.WAITING_STATUS_LINE_END = 1;
+    this.WAITING_HEADER_NAME = 2;
+    this.WAITING_HEADER_SPACE = 3;
+    this.WAITING_HEADER_VALUE = 4;
+    this.WAITING_HEADER_LINE_END = 5;
+    this.WAITING_HEADER_BLOCK_END = 6;
+    this.WAITING_BODY = 7;
+
+    this.current = this.WAITING_STATUS_LINE;
+    this.statusLine = '';
+    this.headers = {};
+    this.headerName = '';
+    this.headerValue = '';
+    this.bodyParser = null;
+
+  }
+
   receive(string) {
     for (let i = 0; i < string.length; i++) {
       this.receiveChar(string.charAt(i));
     }
   }
   receiveChar(char) {
+    if (this.current === this.WAITING_STATUS_LINE) {
+      if (char === '\r')
+        this.current = this.WAITING_STATUS_LINE_END;
+      else
+        this.statusLine += char;
+    } else if (this.current === this.WAITING_STATUS_LINE_END) {
+      if (char === '\n')
+        this.current = this.WAITING_HEADER_NAME;
+    } else if (this.current === this.WAITING_HEADER_NAME) {
+      if (char === ':')
+        this.current = this.WAITING_HEADER_SPACE;
+      if (char === '\r')
+        this.current = this.WAITING_HEADER_BLOCK_END;
+      else
+        this.statusLine += char;
+    } else if (this.current === this.WAITING_HEADER_SPACE) {
+      if (char === ' ')
+        this.current = this.WAITING_HEADER_VALUE;
+    } else if (this.current === this.WAITING_HEADER_VALUE) {
+      if (char === '\r') {
+        this.current = this.WAITING_HEADER_BLOCK_END;
+        this.headers[this.headerName] = this.headerValue;
+        this.headerName = '';
+        this.headerValue = '';
+      } else {
+        this.statusLine += char;
+      }
+    } else if (this.current === this.WAITING_HEADER_LINE_END) {
+      if (char === '\n')
+        this.current = this.WAITING_BODY;
+    } else if (this.current === this.WAITING_BODY) {
+      console.log(char);
 
+    }
   }
 }
 

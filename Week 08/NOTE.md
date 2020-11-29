@@ -176,3 +176,12 @@ Buffer.concat()的api的入参类型是list: Uint8Array[]但是这块是string
 改成
 ```js  body = (Buffer.concat([ Buffer.from(body.toString()) ])).toString();```
 就行了
+
+# 13. HTTP请求 | response解析
+
+- [ ] 任务 使用有限状态机完成client.js里ResponseParser的状态描述
+
+## 第4步ResponseParser总结
+- Response必须分段构造，所以我们需要一个ResponseParser来‘装配’
+- ResponseParser分段处理ResponseText,我们用状态机来分析文本结构
+
