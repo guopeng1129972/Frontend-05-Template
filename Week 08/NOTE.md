@@ -185,3 +185,28 @@ Buffer.concat()的api的入参类型是list: Uint8Array[]但是这块是string
 - Response必须分段构造，所以我们需要一个ResponseParser来‘装配’
 - ResponseParser分段处理ResponseText,我们用状态机来分析文本结构
 
+# 14. HTTP请求 | response body的解析
+
+## 第5步BodyParser总结
+
+- Response 的body可能根据Content-Type有不同的结构，因此我们会采用子Parser的结构解决问题
+- 以TrunkedBodyParser为例，我们同样用状态机来处理body的格式
+
+还有点问题，
+1个就是上次的那个写的有问题，这节上改好了
+2就是这节的那个解析如果用/r/n的话，解析的好像也有问题
+3.就是报文上面的d 0 是干什么的,我又没添加 
+如果是协议加的，那为什么我解析报文内容的时候可以解析得到？
+```json
+HTTP/1.1 200 OK
+Content-type: text/html
+Date: Sun, 29 Nov 2020 19:22:21 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+d
+ Hello World
+
+0
+```
+

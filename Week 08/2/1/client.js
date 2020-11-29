@@ -1,4 +1,3 @@
-console.log('client is run');
 const net = require('net');
 class Request {
   constructor(option) {
@@ -32,7 +31,6 @@ class Request {
         });
       }
       connection.on('data', (data) => {
-        // console.log(data);
         console.log(data.toString());
         parser.receive(data.toString());
         if (parser.isFinished) {
@@ -56,6 +54,8 @@ class Request {
 
 }
 
+
+
 class ResponseParser {
   constructor() {
     this.WAITING_STATUS_LINE = 0;
@@ -77,6 +77,7 @@ class ResponseParser {
   }
 
   receive(string) {
+    // console.log(`string ${string}`);
     for (let i = 0; i < string.length; i++) {
       this.receiveChar(string.charAt(i));
     }
@@ -91,33 +92,88 @@ class ResponseParser {
       if (char === '\n')
         this.current = this.WAITING_HEADER_NAME;
     } else if (this.current === this.WAITING_HEADER_NAME) {
-      if (char === ':')
+      if (char === ':') {
         this.current = this.WAITING_HEADER_SPACE;
-      if (char === '\r')
+      } else if (char === '\r') {
         this.current = this.WAITING_HEADER_BLOCK_END;
-      else
-        this.statusLine += char;
+        if (this.headers['Transfer-Encoding'] === 'chunked')
+          this.bodyParser = new TrunkedBodyParser();
+        // console.log(1);
+      } else
+        this.headerName += char;
     } else if (this.current === this.WAITING_HEADER_SPACE) {
       if (char === ' ')
         this.current = this.WAITING_HEADER_VALUE;
     } else if (this.current === this.WAITING_HEADER_VALUE) {
       if (char === '\r') {
-        this.current = this.WAITING_HEADER_BLOCK_END;
+        this.current = this.WAITING_HEADER_LINE_END;
         this.headers[this.headerName] = this.headerValue;
         this.headerName = '';
         this.headerValue = '';
+        // console.log(this.headers);
       } else {
-        this.statusLine += char;
+        this.headerValue += char;
       }
     } else if (this.current === this.WAITING_HEADER_LINE_END) {
       if (char === '\n')
+        this.current = this.WAITING_HEADER_NAME;
+    } else if (this.current === this.WAITING_HEADER_BLOCK_END) {
+      if (char === '\n')
         this.current = this.WAITING_BODY;
-    } else if (this.current === this.WAITING_BODY) {
-      console.log(char);
-
+    } else if (this.current === this.WAITING_BODY)
+      this.bodyParser.receiveChar(char);
+  }
+}
+class TrunkedBodyParser {
+  constructor(){
+    this.content = [];
+  }
+  receiveChar(char){
+    this.content.push(char);
+    // console.log(this.content);
+  }
+}
+class TrunkedBodyParser2 {
+  constructor() {
+    this.WAITING_LENGTH = 0;
+    this.WAITING_LENGTH_LINE_END = 1;
+    this.READING_TRUNK = 2;
+    this.WAITING_NEW_LINE = 3;
+    this.WAITING_NEW_LINE_END = 4;
+    this.length = 0;
+    this.content = [];
+    this.isFinished = false;
+    this.current = this.WAITING_LENGTH;
+  }
+  receiveChar(char) {
+    if (this.current === this.WAITING_LENGTH) {
+      if (char === '\r') {
+        if (this.length === 0)
+          this.isFinished = true;
+        this.current = this.WAITING_LENGTH_LINE_END;
+      } else {
+        this.length *= 16;
+        this.length += parseInt(char, 16);
+      }
+    } else if (this.current === this.WAITING_NEW_LINE_END) {
+      if (char === '\n') {
+        this.current = this.READING_TRUNK;
+      }
+    } else if (this.current === this.READING_TRUNK) {
+      this.content.push(char);
+      this.length--;
+      if (this.length === 0)
+        this.current = this.WAITING_NEW_LINE;
+    } else if (this.current === this.WAITING_NEW_LINE) {
+      if (char === '\r')
+        this.current = this.WAITING_NEW_LINE_END;
+    } else if (this.current === this.WAITING_NEW_LINE_END) {
+      if (char === '\n')
+        this.current = this.WAITING_LENGTH;
     }
   }
 }
+
 
 void async function () {
   let request = new Request({
@@ -133,5 +189,5 @@ void async function () {
     }
   });
   let response = await request.send();
-  console.log(response);
+  console.log(`response ${response}`);
 }();
