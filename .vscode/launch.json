@@ -103,7 +103,16 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 08/2/1/client.js"
+      "program": "${workspaceFolder}/Week 09/1-spiltFile/client.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "parser",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/Week 09/1-spiltFile/parser.js"
     },
   ]
 }
