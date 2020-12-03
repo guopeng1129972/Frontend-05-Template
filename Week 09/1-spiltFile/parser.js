@@ -1,27 +1,49 @@
+let currentToken = null;
+
+function emit(token) {
+  console.log(token);
+}
 const EOF = Symbol('EOF');
+
 
 function data(c) {
   if (c == '<')
     return tagOpen;
-  else if (c == EOF)
+  else if (c == EOF) {
+    emit({
+      type: 'EOF'
+    });
     return;
-  else
+  } else {
+    emit({
+      type: 'data',
+      content: c
+    });
     return data;
+  }
 }
 
 function tagOpen(c) {
   if (c == '/')
     return endTagOpen;
-  else if (c.match(/^[a-zA-Z]$/))
+  else if (c.match(/^[a-zA-Z]$/)) {
+    currentToken = {
+      type: 'startTag',
+      tagName: ''
+    }
     return tagName(c);
-  else
+  } else
     return;
 }
 
 function endTagOpen(c) {
-  if (c.match(/^[a-zA-Z]/))
+  if (c.match(/^[a-zA-Z]/)) {
+    currentToken = {
+      type: 'endTag',
+      tagName: ''
+    };
     return tagName(c);
-  else if (c == '>') {} else if (c == EOF)
+  } else if (c == '>') {} else if (c == EOF)
     return;
   else {}
 }
@@ -31,9 +53,10 @@ function tagName(c) {
     return beforeAttributeName;
   else if (c == '/')
     return selfCloseingStartTag;
-  else if (c.match(/^[a-zA-z]/))
+  else if (c.match(/^[a-zA-z]/)) {
+    currentToken.tagName += c;
     return tagName;
-  else if (c == '>')
+  } else if (c == '>')
     return data;
   else
     return tagName;
@@ -65,5 +88,4 @@ module.exports.parseHTML = function parseHTML(html) {
     state = state(c);
   }
   state = state(EOF);
-  console.log(html);
 }
