@@ -86,7 +86,7 @@ class ResponseParser {
       statusText:RegExp.$2,
       headers:this.headers,
       body:this.bodyParser.content.join('')
-    }
+    };
   }
 
   receive(string) {
