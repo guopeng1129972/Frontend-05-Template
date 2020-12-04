@@ -1,3 +1,4 @@
+const css=require('css');
 const EOF = Symbol('EOF');
 let currentToken = null;
 let currentAttribute = null;
@@ -7,7 +8,18 @@ let stack = [{
   type: "document",
   children: []
 }];
+const fs = require('fs');
+const path = require('path');
+let file = path.resolve(__dirname, './file.js');
 
+let rules=[];
+function addCSSRules(text){
+  var ast=css.parse(text);
+  console.log(JSON.stringify(ast,null,  "    "));
+  rules.push(...ast.stylesheet.rules);
+  fs.writeFile(file, JSON.stringify(rules, null, 4), { encoding: 'utf8' }, err => {});
+
+}
 function emit(token) {
 
   let top = stack[stack.length - 1];
@@ -40,6 +52,9 @@ function emit(token) {
     if (top.tagName != token.tagName) {
       throw new Error(`Tag start end doesn't match!`);
     } else {
+      if(top.tagName=='style'){
+        addCSSRules(top.children[0].content);
+      }
       stack.pop();
     }
     currentTextNode = null;

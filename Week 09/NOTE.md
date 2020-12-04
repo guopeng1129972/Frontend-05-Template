@@ -89,3 +89,16 @@ else if (token.type == 'text') {
 - 文本节点与自封闭标签处理类似
 - 多个文本节点需要合并
 
+# 8. CSS计算 | 收集CSS规则
+css computing的过程是发生在dom树构建过程中
+## 环境准备
+安装css parser
+```bash
+npm install css
+```
+
+##  第一步 收集CSS规则
+
+- 遇到style标签时，我们把CSS规则保存起来
+- 这里我们调用CSS Parser来分析CSS规则
+- 这里我们必须要仔细研究此库分析CSS规则的格式
