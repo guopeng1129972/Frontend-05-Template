@@ -69,3 +69,23 @@ void async function () {
 - 遇到开始标签时创建元素并入栈，遇到结束标签时出栈
 - 自封闭节点可视为入栈后立即出栈
 - 任何元素的父元素是它入栈前的栈顶
+
+# 7. HTML解析 | 将文本节点加到DOM树
+主要就是补全token.type == 'text'的逻辑，让它不返回，与处理单标签方式差不多
+```js
+else if (token.type == 'text') {
+  if (currentTextNode == null) {
+    currentTextNode = {
+      type: 'text',
+        content: ''
+      };
+      top.children.push(currentTextNode);
+    }
+    currentTextNode.content += token.content;
+  }
+```
+##  第七步 将文本节点加到DOM树
+
+- 文本节点与自封闭标签处理类似
+- 多个文本节点需要合并
+
