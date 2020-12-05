@@ -24,8 +24,34 @@ function addCSSRules(text) {
 
 }
 
+function match(element, selector) {
+  return false;
+}
+
 function computeCSS(element) {
-  var elements=stack.slice().reverse();
+  var elements = stack.slice().reverse();
+  if (!element.computedStyle)
+    element.computedStyle = {};
+  for (let rule of rules) {
+    var selectorParts = rule.selectors[0].split(' ').reverse();
+    if (!match(element, selectorParts[0])) {
+      continue;
+    }
+    let matched = false;
+    var j = 1;
+    for (var i = 0; i < element.length; i++) {
+      if (match(elements[i], selectorParts[i])) {
+        j++;
+      }
+    }
+    if (j >= selectorParts.length) {
+      matched = true;
+    }
+    if (matched) {
+      console.log(`Element ,${element},matched rule,${rule}`);
+    }
+  }
+
 }
 
 function emit(token) {
