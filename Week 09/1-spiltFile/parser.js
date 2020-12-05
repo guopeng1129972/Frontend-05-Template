@@ -25,8 +25,7 @@ function addCSSRules(text) {
 }
 
 function computeCSS(element) {
-  console.log(rules);
-  console.log('compute css from element');
+  var elements=stack.slice().reverse();
 }
 
 function emit(token) {

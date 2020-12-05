@@ -110,3 +110,18 @@ npm install css
 - 当我们创建一个元素后，立即计算CSS
 - 理论上，当我们分析一个元素时，所有CSS规则已经收集完毕
 - 在真实浏览器中，可能遇到写在body中的style标签，需要重新计算css的情况(略)
+
+# 10. CSS计算 | 获取父元素序列
+
+```js
+//.slice()复制数组，reverse翻转
+function computeCSS(element) {
+  var elements=stack.slice().reverse();
+}
+```
+
+##  第三步 获取父元素序列
+
+- 在computeCss函数中，我们必须知道元素在所有父元素才能判断元素与规则是否匹配
+- 我们从上一步骤的stack，可以获得本元素所有的父元素(parent节点)
+- 因为我们首先获取的是“当前元素”，所以我们获得和计算父元素匹配的顺序是从内到外的
