@@ -13,7 +13,7 @@ http.createServer((request, response) => {
     response.writeHead(200, {
       'Content-type': 'text/html'
     });
-    response.end(`<html maaa=a>
+    response.end(`<html>
 <head>
 <style>
 body div #myid {
@@ -26,8 +26,8 @@ background-color: #ff1111;
 }
 </style>
 </head>
-<body id="mybody">
-<div>
+<body>
+<div >
 <img id="myid" />
 <img />
 </div>

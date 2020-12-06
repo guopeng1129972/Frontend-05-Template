@@ -1,5 +1,5 @@
 const net = require('net');
-const parser=require('./parser.js');
+const parser = require('./parser.js');
 class Request {
   constructor(option) {
     this.method = option.method || 'GET';
@@ -76,16 +76,16 @@ class ResponseParser {
     this.bodyParser = null;
 
   }
-  get isFinished(){
+  get isFinished() {
     return this.bodyParser && this.bodyParser.isFinished;
   }
-  get response(){
+  get response() {
     this.statusLine.match(/HTTP\/1.1 ([0-9]+) ([\S\s]+)/);
     return {
-      statusCode:RegExp.$1,
-      statusText:RegExp.$2,
-      headers:this.headers,
-      body:this.bodyParser.content.join('')
+      statusCode: RegExp.$1,
+      statusText: RegExp.$2,
+      headers: this.headers,
+      body: this.bodyParser.content.join('')
     };
   }
 
@@ -194,7 +194,7 @@ void async function () {
     }
   });
   let response = await request.send();
-  
-  let dom=parser.parseHTML(response.body);
+console.log(response);
+  let dom = parser.parseHTML(response.body);
   // console.log(dom);
 }();

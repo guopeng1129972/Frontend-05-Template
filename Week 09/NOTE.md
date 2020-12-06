@@ -142,3 +142,13 @@ match(element, selector)
 - 根据选择器的类型和元素属性，计算是否与当前元素匹配
 - 这里仅仅实现了三种基本选择器，实际浏览器中要处理复合选择器
 - 作业（可选）：实现复合选择器，实现支持空格的Class选择器
+
+# 13. CSS计算 | 生成computed属性
+
+##  第六步 生成computed属性
+```js
+match(element, selector)
+//我的match找不见 符合条件的元素，因为我的computeCSS(element)方法走不到body下面
+// 这节就看了一下，然后写下笔记
+```
+- 一旦选择匹配，就应用选择器到元素上，形成computedStyle

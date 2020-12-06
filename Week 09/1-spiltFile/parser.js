@@ -66,7 +66,15 @@ function computeCSS(element) {
       matched = true;
     }
     if (matched) {
-      console.log(`Element ,${element},matched rule,${rule}`);
+      // console.log(`Element ,${element},matched rule,${rule}`);
+      var computedStyle=element.computedStyle;
+      for(var declaration of rule.declaration){
+        if(!computedStyle[declaration.property]){
+          computedStyle[declaration.property]={};
+          computedStyle[declaration.property].value=declaration.value;
+        }
+      }
+      console.log(element.computedStyle);
     }
   }
 
@@ -162,7 +170,7 @@ function tagOpen(c) {
 }
 
 function endTagOpen(c) {
-  if (c.match(/^[a-zA-Z]/)) {
+  if (c.match(/^[a-zA-Z]$/)) {
     currentToken = {
       type: 'endTag',
       tagName: ''
@@ -178,15 +186,16 @@ function tagName(c) {
     return beforeAttributeName;
   else if (c == '/')
     return selfCloseingStartTag;
-  else if (c.match(/^[a-zA-z]/)) {
+  else if (c.match(/^[a-zA-z]$/)) {
     currentToken.tagName += c;
     return tagName;
   } else if (c == '>') {
     emit(currentToken);
     return data;
 
-  } else
+  } else{
     return tagName;
+  }
 }
 
 function beforeAttributeName(c) {
@@ -203,19 +212,23 @@ function beforeAttributeName(c) {
   }
 }
 
+function selfCloseingStartTag(c) {
+  if (c == '>') {
+    currentToken.isSelfClosing = true;
+    return data;
+  } else if (c == EOF)
+    return;
+}
+
 function attributeName(c) {
   if (c.match(/^[\t\n\f ]$/) || c == '/' || c == '>' || c == EOF) {
     return afterAttributeName(c);
   } else if (c == '=') {
     return beforeAttributeValue;
-  } else if (c == '\u0000') {} else if (c == "\"" || c == '>' || c == "'") {} else {
+  } else if (c == '\u0000') {} else if (c == "\"" || c == '<' || c == "'") {} else {
     currentAttribute.name += c;
     return attributeName;
   }
-}
-
-function afterAttributeName(c) {
-
 }
 
 function beforeAttributeValue(c) {
@@ -225,14 +238,16 @@ function beforeAttributeValue(c) {
     return doubleQuotedAttributeValue;
   } else if (c == "'") {
     return singleQuotedAttributeValue;
-  } else if (c == '>') {} else {
+  } else if (c == '>') {
+    // return data;
+  } else {
     return UnquotedAttributeValue(c);
   }
 }
 
 function doubleQuotedAttributeValue(c) {
   if (c == "\"") {
-    currentAttribute[currentAttribute.name] = currentAttribute.value;
+    currentToken[currentAttribute.name] = currentAttribute.value;
     return afterQuotedAttributeValue;
   } else if (c == '\u0000') {} else if (c == EOF) {} else {
     currentAttribute.value += c;
@@ -242,11 +257,11 @@ function doubleQuotedAttributeValue(c) {
 
 function singleQuotedAttributeValue(c) {
   if (c == "\'") {
-    currentAttribute[currentAttribute.name] = currentAttribute.value;
+    currentToken[currentAttribute.name] = currentAttribute.value;
     return afterQuotedAttributeValue;
   } else if (c == '\u0000') {} else if (c == EOF) {} else {
     currentAttribute.value += c;
-    return doubleQuotedAttributeValue;
+    return singleQuotedAttributeValue;
   }
 
 }
@@ -255,7 +270,7 @@ function afterQuotedAttributeValue(c) {
   if (c.match(/^[\n\f\t ]$/)) {
     return beforeAttributeName;
   } else if (c == '/') {
-    return singleQuotedAttributeValue;
+    return selfCloseingStartTag;
   } else if (c == '>') {
     currentToken[currentAttribute.name] = currentAttribute.value;
     emit(currentToken);
@@ -304,14 +319,7 @@ function afterAttributeName(c) {
   }
 }
 
-function selfCloseingStartTag(c) {
-  if (c == '>') {
-    currentToken.isSelfClosing = true;
-    return data;
-  } else if (c == EOF)
-    return;
-  else {}
-}
+
 
 module.exports.parseHTML = function parseHTML(html) {
   let state = data;
