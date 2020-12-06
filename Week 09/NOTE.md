@@ -154,7 +154,7 @@ match(element, selector)
 - 一旦选择匹配，就应用选择器到元素上，形成computedStyle
 
 # 14. CSS计算 | specificity的计算逻辑
-
+<!-- 那个问题还在看 -->
 ##  第七步 specificity的计算逻辑
 
 - CSS规则根据specificity和后来优先规则覆盖
