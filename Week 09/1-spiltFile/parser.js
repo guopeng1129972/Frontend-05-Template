@@ -18,13 +18,31 @@ function addCSSRules(text) {
   var ast = css.parse(text);
   // console.log(JSON.stringify(ast, null, "    "));
   rules.push(...ast.stylesheet.rules);
-  fs.writeFile(file, JSON.stringify(rules, null, 4), {
-    encoding: 'utf8'
-  }, err => {});
+  // fs.writeFile(file, JSON.stringify(rules, null, 4), {
+  //   encoding: 'utf8'
+  // }, err => {});
 
 }
 
 function match(element, selector) {
+  if (!selector || !element.attributes) {
+    return false;
+  }
+  if (selector.charAt(0) == '#') {
+    var attr = element.attributes.filter(attr => attr.name === 'id')[0];
+    if (attr && attr.value === selector.replace("#", '')) {
+      return true;
+    }
+  } else if (selector.charAt(0) == '.') {
+    var attr = element.attributes.filter(attr => attr.name === 'class')[0];
+    if (attr && attr.value === selector.replace(".", '')) {
+      return true;
+    } else {
+      if (element.tagName == selector) {
+        return true;
+      }
+    }
+  }
   return false;
 }
 
@@ -82,7 +100,8 @@ function emit(token) {
       stack.push(element);
 
     currentTextNode = null;
-  } else if (token.type == 'endTag') {
+  }
+  if (token.type == 'endTag') {
     if (top.tagName != token.tagName) {
       throw new Error(`Tag start end doesn't match!`);
     } else {
@@ -92,7 +111,8 @@ function emit(token) {
       stack.pop();
     }
     currentTextNode = null;
-  } else if (token.type == 'text') {
+  }
+  if (token.type == 'text') {
     if (currentTextNode == null) {
       currentTextNode = {
         type: 'text',
