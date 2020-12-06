@@ -14,13 +14,40 @@ let file = path.resolve(__dirname, './file.js');
 
 let rules = [];
 
+function specificity(selector){
+  var p=[0,0,0,0];
+  var selectorParts=selector.split(' ');
+  for (var part of selectorParts){
+    if(part.charAt(0)=="#"){
+      p[1]+=1;
+    }else if(part.charAt(0)=='.'){
+      p[2]+=1;
+    }else{
+      p[3]+=1;
+    }
+  }
+  return p;
+}
+
+function compare(sp1,sp2){
+  if(sp1[0]-sp2[0]){
+    return sp1[0]-sp2[0];
+  }
+  if(sp1[1]-sp2[1]){
+    return sp1[1]-sp2[1];
+  }
+  if(sp1[2]-sp2[2]){
+    return sp1[2]-sp2[2];
+  }
+  return sp1[3]-sp2[3];
+}
+
 function addCSSRules(text) {
   var ast = css.parse(text);
-  // console.log(JSON.stringify(ast, null, "    "));
   rules.push(...ast.stylesheet.rules);
-  // fs.writeFile(file, JSON.stringify(rules, null, 4), {
-  //   encoding: 'utf8'
-  // }, err => {});
+  fs.writeFile(file, JSON.stringify(rules, null, 4), {
+    encoding: 'utf8'
+  }, err => {});
 
 }
 
@@ -71,7 +98,13 @@ function computeCSS(element) {
       for(var declaration of rule.declaration){
         if(!computedStyle[declaration.property]){
           computedStyle[declaration.property]={};
-          computedStyle[declaration.property].value=declaration.value;
+          if(!computedStyle[declaration.property].specificity){
+            computedStyle[declaration.property].value=declaration.value;
+            computedStyle[declaration.property].specificity=sp;
+          }else if(compare(computedStyle[declaration.property].specificity,sp)>0){
+            computedStyle[declaration.property].value=declaration.value;
+            computedStyle[declaration.property].specificity=sp;
+          }
         }
       }
       console.log(element.computedStyle);
