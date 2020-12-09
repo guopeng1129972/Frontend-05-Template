@@ -14,32 +14,32 @@ let file = path.resolve(__dirname, './file.js');
 
 let rules = [];
 
-function specificity(selector){
-  var p=[0,0,0,0];
-  var selectorParts=selector.split(' ');
-  for (var part of selectorParts){
-    if(part.charAt(0)=="#"){
-      p[1]+=1;
-    }else if(part.charAt(0)=='.'){
-      p[2]+=1;
-    }else{
-      p[3]+=1;
+function specificity(selector) {
+  var p = [0, 0, 0, 0];
+  var selectorParts = selector.split(' ');
+  for (var part of selectorParts) {
+    if (part.charAt(0) == "#") {
+      p[1] += 1;
+    } else if (part.charAt(0) == '.') {
+      p[2] += 1;
+    } else {
+      p[3] += 1;
     }
   }
   return p;
 }
 
-function compare(sp1,sp2){
-  if(sp1[0]-sp2[0]){
-    return sp1[0]-sp2[0];
+function compare(sp1, sp2) {
+  if (sp1[0] - sp2[0]) {
+    return sp1[0] - sp2[0];
   }
-  if(sp1[1]-sp2[1]){
-    return sp1[1]-sp2[1];
+  if (sp1[1] - sp2[1]) {
+    return sp1[1] - sp2[1];
   }
-  if(sp1[2]-sp2[2]){
-    return sp1[2]-sp2[2];
+  if (sp1[2] - sp2[2]) {
+    return sp1[2] - sp2[2];
   }
-  return sp1[3]-sp2[3];
+  return sp1[3] - sp2[3];
 }
 
 function addCSSRules(text) {
@@ -64,10 +64,10 @@ function match(element, selector) {
     var attr = element.attributes.filter(attr => attr.name === 'class')[0];
     if (attr && attr.value === selector.replace(".", '')) {
       return true;
-    } else {
-      if (element.tagName == selector) {
-        return true;
-      }
+    }
+  } else {
+    if (element.tagName == selector) {
+      return true;
     }
   }
   return false;
@@ -84,8 +84,8 @@ function computeCSS(element) {
     }
     let matched = false;
     var j = 1;
-    for (var i = 0; i < element.length; i++) {
-      if (match(elements[i], selectorParts[i])) {
+    for (var i = 0; i < elements.length; i++) {
+      if (match(elements[i], selectorParts[j])) {
         j++;
       }
     }
@@ -93,17 +93,17 @@ function computeCSS(element) {
       matched = true;
     }
     if (matched) {
-      // console.log(`Element ,${element},matched rule,${rule}`);
-      var computedStyle=element.computedStyle;
-      for(var declaration of rule.declaration){
-        if(!computedStyle[declaration.property]){
-          computedStyle[declaration.property]={};
-          if(!computedStyle[declaration.property].specificity){
-            computedStyle[declaration.property].value=declaration.value;
-            computedStyle[declaration.property].specificity=sp;
-          }else if(compare(computedStyle[declaration.property].specificity,sp)>0){
-            computedStyle[declaration.property].value=declaration.value;
-            computedStyle[declaration.property].specificity=sp;
+      var sp=specificity(rule.selectors[0]);
+      var computedStyle = element.computedStyle;
+      for (var declaration of rule.declarations) {
+        if (!computedStyle[declaration.property]) {
+          computedStyle[declaration.property] = {};
+          if (!computedStyle[declaration.property].specificity) {
+            computedStyle[declaration.property].value = declaration.value;
+            computedStyle[declaration.property].specificity = sp;
+          } else if (compare(computedStyle[declaration.property].specificity, sp) > 0) {
+            computedStyle[declaration.property].value = declaration.value;
+            computedStyle[declaration.property].specificity = sp;
           }
         }
       }
@@ -184,9 +184,9 @@ function data(c) {
 }
 
 function tagOpen(c) {
-  if (c == '/')
+  if (c == '/') {
     return endTagOpen;
-  else if (c.match(/^[a-zA-Z]$/)) {
+  } else if (c.match(/^[a-zA-Z]$/)) {
     currentToken = {
       type: 'startTag',
       tagName: ''
@@ -226,7 +226,7 @@ function tagName(c) {
     emit(currentToken);
     return data;
 
-  } else{
+  } else {
     return tagName;
   }
 }
@@ -248,6 +248,8 @@ function beforeAttributeName(c) {
 function selfCloseingStartTag(c) {
   if (c == '>') {
     currentToken.isSelfClosing = true;
+    currentToken[currentAttribute.name] = currentAttribute.value;
+    emit(currentToken);
     return data;
   } else if (c == EOF)
     return;
@@ -272,7 +274,7 @@ function beforeAttributeValue(c) {
   } else if (c == "'") {
     return singleQuotedAttributeValue;
   } else if (c == '>') {
-    // return data;
+    return data;
   } else {
     return UnquotedAttributeValue(c);
   }
@@ -355,6 +357,7 @@ function afterAttributeName(c) {
 
 
 module.exports.parseHTML = function parseHTML(html) {
+  // console.log(html);
   let state = data;
   for (let c of html) {
     state = state(c);

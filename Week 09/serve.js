@@ -16,6 +16,9 @@ http.createServer((request, response) => {
     response.end(`<html>
 <head>
 <style>
+#root {
+  font-size: 13px;
+}
 body div #myid {
 width: 100px;
 background-color: #ff5000;
@@ -26,8 +29,8 @@ background-color: #ff1111;
 }
 </style>
 </head>
-<body>
-<div >
+<body id="root">
+<div>
 <img id="myid" />
 <img />
 </div>
