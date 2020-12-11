@@ -20,6 +20,7 @@ function getStyle(element) {
 }
 
 function layout(element) {
+  console.log(element);
 
   if (!element.computedStyle)
     return;
@@ -27,8 +28,8 @@ function layout(element) {
 
   if (elementStyle.display !== 'flex')
     return;
-  var item = element.children.filters(e => e.type === 'element');
-  item.sort(function (a, b) {
+  var items = element.children.filters(e => e.type === 'element');
+  items.sort(function (a, b) {
     return (a.order || 0) - (b.order || 0);
   });
   var style = elementStyle;
@@ -107,6 +108,63 @@ function layout(element) {
     crossBase = 0;
     crossSign = 1;
   }
+
+  var isAutoMainSize = false;
+  if (!style[mainSize]) {
+    elementStyle[mainSize] = 0;
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      //没看清楚 好像没写获取
+      // var itemStyle=getStyle(item);
+      if (itemStyle[mainSize] !== null || itemStyle[mainSize] !== '')
+        elementStyle[mainSize] = elementStyle[mainSize];
+    }
+    isAutoMainSize = true;
+  }
+
+  var flexLine = [];
+  var flexLines = [flexLine];
+
+  var mainSpace = elementStyle[mainSize];
+  var crossSpace = 0;
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var itemStyle = getStyle(item);
+
+    if (itemStyle[mainSize] === null) {
+      itemStyle[mainSize] = 0;
+    }
+    if (itemStyle.flex) {
+      flexLine.push(item);
+    } else if (style.flexWrap === 'nowrap' && isAutoMainSize) {
+      //可以放在同一行
+      mainSpace -= itemStyle[mainSize];
+      if (itemStyle[crossSize] !== null && itemStyle[crossSize] !== (void 0))
+        crossSpace = Math.max(crossSpace, itemStyle[crossSpace]);
+      flexLine.push(item);
+    } else {
+      // 换行处理 1if 大于最大长度时 按最大长度处理 2if小于时处理逻辑
+      if (itemStyle[mainSize] > style[mainSize]) {
+        itemStyle[mainSize] = style[mainSize];
+      }
+      if (mainSpace < itemStyle[mainSize]) {
+        flexLine.mainSpace = mainSpace;
+        flexLine.crossSize = crossSpace;
+        flexLine = [item];
+        flexLines.push(flexLine);
+        mainSpace = style[mainSize];
+        crossSpace = 0;
+      } else {
+        flexLine.push(item);
+      }
+      if (itemStyle[crossSize] !== null && itemStyle[crossSize] !== (void 0))
+        crossSpace = Math.max(crossSpace, itemStyle[crossSize]);
+      mainSpace -= itemStyle[mainSize];
+    }
+  }
+  flexLine.mainSpace = mainSpace;
+  console.log(items);
 
 };
 
