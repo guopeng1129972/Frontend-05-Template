@@ -164,7 +164,90 @@ function layout(element) {
     }
   }
   flexLine.mainSpace = mainSpace;
-  console.log(items);
+
+  if (style.flexWrap === 'nowrap' || isAutoMainSize) {
+    flexLine.crossSize = (style[crossSize] !== undefined) ? style[crossSize] : crossSpace;
+  } else {
+    flexLine.crossSpace = crossSpace;
+  }
+  //style[mainSize] 主轴尺寸 - mainSpace 期望尺寸 2--3=5
+  if (mainSpace < 0) {
+    var scale = style[mainSize] / (style[mainSize] - mainSpace);
+    var currentMain = mainBase;
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var itemStyle = getStyle(item);
+
+      if (itemStyle.flex) {
+        itemStyle[mainSize] = 0;
+      }
+
+      itemStyle[mainSize] = itemStyle[mainSize] * scale;
+      itemStyle[mainStart] = currentMain;
+      itemStyle[mainEnd] = itemStyle[mainStart] + mainSign * itemStyle[mainSize];
+      currentMain = itemStyle[mainEnd];
+    }
+  } else {
+    flexLines.forEach(function (itmes) {
+
+      var mainSpace = items.mainSpace;
+      var flexTotal = 0;
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        var itemStyle = getStyle(item);
+
+        if ((itemStyle.flex !== null) && (itemStyle.flex !== (void 0))) {
+          flexTotal += itemStyle.flex;
+          continue;
+        }
+      }
+
+      if(flexTotal>0){
+        var currentMain=mainBase;
+        for(var i=0;i<items.length;i++){
+          var item=items[i];
+          var itemStyle=getStyle(item);
+
+          if(itemStyle.flex){
+            itemStyle[mainSize]=(mainSpace/flexTotal)*itemStyle.flex;
+          }
+          itemStyle[mainStart]=currentMain;
+          itemStyle[mainEnd]=itemStyle[mainStart]+mainSign*itemStyle[mainSize];
+          currentMain=itemStyle[mainEnd];
+        }
+      }else{
+        if(style.justifyContent==='flex-start'){
+          var currentMain=mainBase;
+          var step=0;
+        }
+        if(style.justifyContent==='flex-end'){
+          var currentMain=mainSpace*mainSign+mainBase;
+          var step=0;
+        }
+        if(style.justifyContent==='center'){
+          var currentMain=mainSpace/2*mainSign+mainBase;
+          var step=0;
+        }
+        if(style.justifyContent==='space-between'){
+          var step=mainSpace/(items.length-1)*mainSign;
+          var currentMain=mainBase;
+        }
+        if(style.justifyContent==='space-around'){
+          var step=mainSpace/items.length*mainSign;
+          var currentMain=step/2+mainBase;
+        }
+
+        for(var i=0;i<items.length;i++){
+          var item=items[i];
+          //是不是又少写了？
+          // var itemStyle=getStyle[item];
+          itemStyle[mainStart]=currentMain;
+          itemStyle[mainEnd]=itemStyle[mainStart]+mainSign*itemStyle[mainSize];
+          currentMain=itemStyle[mainEnd]+step;
+        }
+      }
+    })
+  }
 
 };
 
