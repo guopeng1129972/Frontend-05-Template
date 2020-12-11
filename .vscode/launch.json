@@ -103,7 +103,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 09/1-spiltFile/client.js"
+      "program": "${workspaceFolder}/Week 10/1-spiltFile/client.js"
     },
     {
       "type": "pwa-node",
@@ -112,7 +112,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Week 09/1-spiltFile/parser.js"
+      "program": "${workspaceFolder}/Week 10/1-spiltFile/parser.js"
     },
   ]
 }
