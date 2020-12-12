@@ -27,12 +27,23 @@ body div img {
 width: 30px;
 background-color: #ff1111;
 }
+#container {
+width: 500px;
+height: 300px;
+display: flex;
+}
+#container #myid {
+width: 200px;
+}
+#container .c1 {
+flex: 1;
+}
 </style>
 </head>
 <body id="root">
-<div>
-<img id="myid" />
-<img />
+<div id="container">
+<div id="myid" />
+<div class="c1" />
 </div>
 </body>
 </html>`);

@@ -22,3 +22,22 @@
   - 找出所有flex元素
   - 把主轴方向的剩余尺寸按比例分配给这些元素
   - 若剩余空间为负数，所有flex元素为0，等比压缩剩余元素（web标准处理方案）
+
+# 4. 排版 | 计算交叉轴
+
+- 计算交叉轴方向
+  - 根据每一行中最大元素尺寸计算行高
+  - 根据行高flex-align和item-align，确定元素具体位置
+
+```js
+console.log(JSON.stringify(dom,null,"   "));
+```
+报了个错误 没转换之前是可以输出dom,可能处理的有问题
+```bash
+    --> starting at object with constructor 'Object'
+    |     property 'children' -> object with constructor 'Array'
+    |     index 1 -> object with constructor 'Object'
+    --- property 'parent' closes the circle
+    at JSON.stringify (<anonymous>)
+    at /Users/mac/Desktop/github/Frontend-05-Template/Week 10/1-spiltFile/client.js:200:20
+```

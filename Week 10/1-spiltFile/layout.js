@@ -28,7 +28,7 @@ function layout(element) {
 
   if (elementStyle.display !== 'flex')
     return;
-  var items = element.children.filters(e => e.type === 'element');
+  var items = element.children.filter(e => e.type === 'element');
   items.sort(function (a, b) {
     return (a.order || 0) - (b.order || 0);
   });
@@ -202,53 +202,133 @@ function layout(element) {
         }
       }
 
-      if(flexTotal>0){
-        var currentMain=mainBase;
-        for(var i=0;i<items.length;i++){
-          var item=items[i];
-          var itemStyle=getStyle(item);
+      if (flexTotal > 0) {
+        var currentMain = mainBase;
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          var itemStyle = getStyle(item);
 
-          if(itemStyle.flex){
-            itemStyle[mainSize]=(mainSpace/flexTotal)*itemStyle.flex;
+          if (itemStyle.flex) {
+            itemStyle[mainSize] = (mainSpace / flexTotal) * itemStyle.flex;
           }
-          itemStyle[mainStart]=currentMain;
-          itemStyle[mainEnd]=itemStyle[mainStart]+mainSign*itemStyle[mainSize];
-          currentMain=itemStyle[mainEnd];
+          itemStyle[mainStart] = currentMain;
+          itemStyle[mainEnd] = itemStyle[mainStart] + mainSign * itemStyle[mainSize];
+          currentMain = itemStyle[mainEnd];
         }
-      }else{
-        if(style.justifyContent==='flex-start'){
-          var currentMain=mainBase;
-          var step=0;
+      } else {
+        if (style.justifyContent === 'flex-start') {
+          var currentMain = mainBase;
+          var step = 0;
         }
-        if(style.justifyContent==='flex-end'){
-          var currentMain=mainSpace*mainSign+mainBase;
-          var step=0;
+        if (style.justifyContent === 'flex-end') {
+          var currentMain = mainSpace * mainSign + mainBase;
+          var step = 0;
         }
-        if(style.justifyContent==='center'){
-          var currentMain=mainSpace/2*mainSign+mainBase;
-          var step=0;
+        if (style.justifyContent === 'center') {
+          var currentMain = mainSpace / 2 * mainSign + mainBase;
+          var step = 0;
         }
-        if(style.justifyContent==='space-between'){
-          var step=mainSpace/(items.length-1)*mainSign;
-          var currentMain=mainBase;
+        if (style.justifyContent === 'space-between') {
+          var step = mainSpace / (items.length - 1) * mainSign;
+          var currentMain = mainBase;
         }
-        if(style.justifyContent==='space-around'){
-          var step=mainSpace/items.length*mainSign;
-          var currentMain=step/2+mainBase;
+        if (style.justifyContent === 'space-around') {
+          var step = mainSpace / items.length * mainSign;
+          var currentMain = step / 2 + mainBase;
         }
 
-        for(var i=0;i<items.length;i++){
-          var item=items[i];
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
           //是不是又少写了？
           // var itemStyle=getStyle[item];
-          itemStyle[mainStart]=currentMain;
-          itemStyle[mainEnd]=itemStyle[mainStart]+mainSign*itemStyle[mainSize];
-          currentMain=itemStyle[mainEnd]+step;
+          itemStyle[mainStart] = currentMain;
+          itemStyle[mainEnd] = itemStyle[mainStart] + mainSign * itemStyle[mainSize];
+          currentMain = itemStyle[mainEnd] + step;
         }
       }
     })
   }
+  var crossSpace;
 
+  if (!style[crossSize]) {
+    crossSpace = 0;
+    elementStyle[crossSpace] = 0;
+    for (var i = 0; i < flexLines.length; i++) {
+      elementStyle[crossSize] = elementStyle[crossSize] + flexLine[i].crossSpace;
+    }
+  } else {
+    crossSpace = style[crossSpace];
+    for (var i = 0; i < flexLines.length; i++) {
+      crossSpace -= flexLines[i].crossSpace;
+    }
+  }
+
+  if (style.flexWrap === 'wrap-reverse') {
+    crossBase = style[crossSize];
+  } else {
+    crossBase = 0;
+  }
+  var lineSize = style[crossSize] / flexLines.length;
+  var step;
+  if (style.alignContent === 'flex-start') {
+    crossBase += 0;
+    step = 0;
+  }
+  if (style.alignContent === 'flex-end') {
+    crossBase += crossSign * crossSpace;
+    step = 0;
+  }
+  if (style.alignContent === 'center') {
+    crossBase += crossSign * crossSpace / 2;
+    step = 0;
+  }
+  if (style.alignContent === 'space-between') {
+    crossBase += 0;
+    step = crossSpace / (flexLines.length - 1);
+  }
+  if (style.alignContent === 'space-around') {
+    step = crossSpace / (flexLines.length);
+    crossBase += crossSign * step / 2;
+  }
+  if (style.alignContent === 'stretch') {
+    crossBase += 0;
+    step = 0;
+  }
+  flexLines.forEach(function (items) {
+    var lineCrossSize = style.alignContent === 'stretch' ?
+      items.crossSpace + crossSpace / flexLines.length :
+      items.crossSpace;
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var itemStyle = getStyle(item);
+
+      var align = itemStyle.alignSelf || style.alignItems;
+
+      if (itemStyle[crossSize] === null) {
+        itemStyle[crossSize] = (align === 'stretch') ?
+          lineCrossSize : 0;
+      }
+      if (align === 'flex-start') {
+        itemStyle[crossStart] = crossBase;
+        itemStyle[crossEnd] = itemStyle[crossStart] + crossSign * itemStyle[crossSize];
+      }
+      if (align === 'flex-end') {
+        itemStyle[crossEnd] = crossBase + crossSign * lineCrossSize;
+        itemStyle[crossStart] = itemStyle[crossEnd] - crossSign * itemStyle[crossSize];
+      }
+      if (align === 'centent') {
+        itemStyle[crossStart] = crossBase + crossSign * (lineCrossSize - itemStyle[crossSize] / 2);
+        itemStyle[crossEnd] = itemStyle[crossStart] + crossSign * itemStyle[crossSize];
+      }
+      if (align === 'stretch') {
+        itemStyle[crossStart] = crossBase;
+        itemStyle[crossEnd] = crossBase + crossSign * ((itemStyle[crossSize] !== null && itemStyle[crossSize] !== ''));
+        itemStyle[crossSize] = crossSign * (itemStyle[crossEnd] - itemStyle[crossStart]);
+      }
+    }
+    crossBase += crossSign * (lineCrossSize + step);
+  });
+  // console.log(items);
 };
 
 module.exports = layout;
