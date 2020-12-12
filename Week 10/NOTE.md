@@ -41,3 +41,17 @@ console.log(JSON.stringify(dom,null,"   "));
     at JSON.stringify (<anonymous>)
     at /Users/mac/Desktop/github/Frontend-05-Template/Week 10/1-spiltFile/client.js:200:20
 ```
+
+# 5. 渲染 | 绘制单个元素
+
+```bash
+npm install images
+```
+
+图片出来了 但是是全黑的 还是有点问题
+
+## 第一步
+- 绘制需要一个图形环境
+- 采用images
+- 绘制在一个viewport上进行
+- 与绘制相关的属性：background-color border background-image
