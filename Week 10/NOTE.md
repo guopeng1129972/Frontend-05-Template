@@ -55,3 +55,7 @@ npm install images
 - 采用images
 - 绘制在一个viewport上进行
 - 与绘制相关的属性：background-color border background-image
+
+# 6. 渲染 | 绘制DOM树
+
+添加递归调用 感觉和浏览器打开的 还不太一样啊 出来的结果
