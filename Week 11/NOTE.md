@@ -30,3 +30,21 @@
   - 不推荐
 - @namespace :https://www.w3.org/TR/css-namespaces-3/
   - css命名空间
+
+# 3. CSS总论 | CSS规则的结构
+
+## CSS规则
+```css
+div {
+  background-color: blue;
+}
+```
+- 选择器 Selector
+  - https://www.w3.org/TR/selectors-3/ 
+  - https://www.w3.org/TR/selectors-4/
+- 声明 Declaration
+  - Key
+    - Properties
+    - Variables: https://www.w3.org/TR/css-variables/
+  - Value
+    - https://www.w3.org/TR/css-values-4/
