@@ -48,3 +48,35 @@ div {
     - Variables: https://www.w3.org/TR/css-variables/
   - Value
     - https://www.w3.org/TR/css-values-4/
+
+# 4. CSS总论 | 收集标准
+
+## 爬取css网站信息
+- https://www.w3.org/TR/?tag=css
+```js
+  Array.prototype.slice.call(document.querySelector('#container').children).filter(e => e.getAttribute('data-tag').match(/css/)).map(e => ({
+    name: e.children[1].innerText,
+    url: e.children[1].children[0].href
+  }))
+```
+也不难 学学
+```js
+ //1
+ Array.prototype.slice.call(`$2`)
+ //2
+ document.querySelector('#container').children
+ //3
+ `$1`.filter(`$4`)
+ //4
+ e => e.getAttribute('data-tag').match(/css/)).map(`$5`)
+ //5
+ e => ({
+    name: e.children[1].innerText,
+    url: e.children[1].children[0].href})
+```
+### 要点
+```js
+// 同域 访问iframe.contentDocument
+iframe.contentDocument.querySelectorAll(".propdef")
+```
+
