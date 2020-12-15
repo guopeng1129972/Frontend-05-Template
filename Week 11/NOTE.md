@@ -87,3 +87,49 @@ iframe.contentDocument.querySelectorAll(".propdef")
 - variables
 - value
 - 实验
+
+# 6. CSS选择器 | 选择器语法
+
+## 选择器语法
+### 简单选择器
+- `*`
+- div svg|a
+- .class
+  - 可以通过空白符（空格）指定多个class
+- #id
+  - `#` 必须严格匹配
+- [attr=value]
+  - name=value
+
+| 属性名 | 描述  | 举例 |
+|------ | ----- | --- |
+|[attr] | 匹配指定的属性名的所有元素。 | [align]{color: red;}
+[attr=val] | 匹配属性等于指定的值所有元素。 | [align=center]{color: red;}
+[attr^=val] | 匹配属性以指定的属性值开头的所有元素 | [color^="#f"]{color :mediumblue;}
+[attr$ =val] | 匹配属性以指定的属性值结尾的所有元素 | [color$="aa"]{color :mediumblue;}
+[attr*=val] | 匹配属性中包含指定的属性值所有元素 | [color*="aa"]{color :mediumblue; }
+- :hover
+  - 带有函数执行
+  - 有交互动作
+- ::before
+
+### 选择器语法
+
+- 复合选择器
+  - <简单选择器><简单选择器><简单选择器>
+    - p.one   选择的是： 类名为 .one  的 段落标签。 
+  - *或者div必须写在前面
+- 复杂选择器
+  - <复合选择器><sp><复合选择器>
+    - div p (父子可以没有直接相关)
+  - <复合选择器> `>` <复合选择器>
+    - div > p （父子需要直接相关）
+  - <复合选择器> `~` <复合选择器>
+    - div ~ p （父子需要直接相关 子为邻接关系）
+  - <复合选择器> `+` <复合选择器>
+  - <复合选择器> `||` <复合选择器>
+    - #table1 || X （表格 选中某一个列）
+    
+**逗号表示选择器或**
+
+  
