@@ -139,7 +139,7 @@ iframe.contentDocument.querySelectorAll(".propdef")
 
 ```css
 #id div.a#id {
-  //...
+/* ... */
 }
 ```
 数值 [0,2,1,1]
@@ -151,3 +151,42 @@ iframe.contentDocument.querySelectorAll(".propdef")
 ```js
      arr[0]*n**3+arr[1]*n**2+arr[2]*n**1+arr[3];
 ```
+
+# 8. CSS选择器 | 伪类
+
+- `链接/行为`
+  - :any-link
+    - 所有超链接 相当于 :link + :visited
+  - :link:visited
+    - 设置 visited之后不能更改除了文字颜色以外的其他属性了，因为其他属性改动之后就可以获取到这个元素，进而可以获取是否访问过了
+  - :hover
+  - :active
+  - :focus
+  - :taget
+    - 链接到当前目标，给a标签使用的（当前的HASH如果指向了当前的a标签所表示的链接，就会激活这个伪类）
+- 树结构
+  - :empty
+    - 是否有子元素
+  - :nth-child()
+    - 比较复杂 
+    - :nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。n 可以是数字、关键词或公式。
+      - :nth-child(5)  选取第五个标签
+      - :nth-child(n+3)  选取大于等于3的标签
+      - :nth-child(-n+3)  选取小于等于3的标签
+    - :nth-child (an + b)  描述：表示周期的长度，n 是计数器（从 0 开始），b 是偏移值。
+      - :nth-child(2n)  选取偶数标签，等同于:nth-child(even)
+      - :nth-child(2n-1)  选取奇数标签，等同于:nth-child(odd)
+      - :nth-child(3n+1) 每隔两个元素选取一个
+  - :nth-last-child()
+    - :nth-last-child(3)  选取倒数第三个
+  - :first-child :last-child :only-child 
+    - :last-child  选取倒数第一个 
+    - 这三个会破坏CSS回溯性原则
+- 逻辑型
+  - :not伪类
+    - 不能写逻辑 复合型选择器 
+  - :where :has
+    - css4 逻辑选择
+
+总结：不能出现特别复杂的选择器，如果这样，有可能是HTML写的有问题
+
