@@ -190,3 +190,40 @@ iframe.contentDocument.querySelectorAll(".propdef")
 
 总结：不能出现特别复杂的选择器，如果这样，有可能是HTML写的有问题
 
+# 9. CSS选择器 | 伪元素
+
+伪元素就是通过选择器向界面添加了一个不存在的元素
+## 目前可用的伪元素
+- ::before
+  - 如果元素有此伪元素 declaration中可以加入content属性 
+- ::after
+  - 如果元素有此伪元素 declaration中可以加入content属性
+- ::first-line
+  - 特点 把特定的逻辑意义的元素括起来 选中第一行
+- ::first-letter
+  - 特点 把特定的逻辑意义的元素括起来 选中第一个字母
+
+不污染dom树，来给页面添加一些修饰性的内容
+```html
+<div>
+<::before/>
+<::first-letter>c</::first-letter>ontent content content 
+content content content 
+<::after/>
+</div>
+```
+![first-letter与first-line可用属性](img/1.jpg)
+
+
+** 为什么 first-letter 可以设置 float 之类的，而 first-line 不行呢？**
+
+个人理解float属性是相对父级的，
+first-line与父级同宽
+
+编写一个 match 函数。它接收两个参数，
+第一个参数是一个选择器字符串性质，第二个是一个 HTML 元素。
+这个元素你可以认为它一定会在一棵 DOM 树里面。
+通过选择器和 DOM 元素来判断，当前的元素是否能够匹配到我们的选择器。
+（不能使用任何内置的浏览器的函数，仅通过 DOM 的 parent 和 
+children 这些 API，来判断一个元素是否能够跟一个选择器相匹配。）
+以下是一个调用的例子。
