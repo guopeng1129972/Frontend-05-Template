@@ -98,3 +98,55 @@
 ### Margin Collapse(边距折叠)( float4.html)
 - 指的当且仅当在一个BFC里，两个拥有margin属性的相邻的元素之间的margin会只保留最大的，而不是相加
 ![Margin Collapse(边距折叠)](img/4.jpg)
+
+# 5. CSS排版 | BFC合并
+
+## Block
+- Block Container:里面有BFC的block
+  - 能容纳正常流的盒，里面就有BFC的block
+- Block-level Box:外边有BFC的block
+- Block Box=Block Container+Block-level Box
+  - 里外都有BFC的block
+### Block Container
+- 所有能够容纳里边不是特殊的display的模式的，默认就是正常流
+- Block Container
+  - block
+  - inline-block
+  - table-cell
+  - flex item
+    - flex 不是,但是里边的子元素可以放
+  - grid cell
+  - table-caption
+###  Block-level Box
+- 大多数的display的值都是对应的，一个是Block level ，一个是 Inline level
+
+| Block level | Inline level |
+| ----------- | ------------ |
+| display:block | display: inline-block |
+| display: flex | display: inline-flex |
+| display: table | display: inline-table |
+| display: grid | display: inline-grid |
+| ...... | ...... |
+display: run-in (没见用过)
+### 如何产生一个BFC（css2.1标准）
+- floats（浮动）
+- absolutely positioned elements（绝对定位）
+- block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes,
+  - flex items
+  - grid cell
+  - ......
+- and block boxes with 'overflow' other than 'visible'
+
+### 反这来说，什么情况下不会产生BFC
+- 默认情况都会发生BFC，但是有种请款会发生BFC合并，那么就只有这种情况下不会有BFC
+### 何时会发生BFC合并
+- block box && overflow:visible
+  - 里外都是BFC，并且overflow:visible
+###### overflow:visible 超出不会被修剪
+### BDC合并的影响
+- BFC合并与float
+  - 设置overflow:visible的元素，会与float元素合并(bfc1.html）
+  - 设置overflow不为visible的元素，会产生新的BFC结构(bfc1.html）
+- BFC合并与边距折叠
+  - 设置overflow:visible的元素，相邻的两个元素会发生边距折叠(bfc2.html)
+  - 设置overflow不为visible的元素，相邻的两个元素会产生新的BFC结构(bfc2.html)
