@@ -51,3 +51,33 @@
 - 计算行的排布
 
 ![IFC与BFC](img/2.jpg)
+
+# 3. CSS排版 | 正常流的行级排布
+
+- Baseline(基线)
+  - 文字在书写时的基础参照线
+- Text
+  - C++底层库 freeType 参照原点（origin）对一个字母进行抽象定义
+
+![freeType中对文字的定义](img/3.jpg)
+- 行模型
+  - line-top
+    - 如果行高大于文字的高度就表示行的最高的线
+  - text-top
+    - 字体混排时，一行中最大的字决定
+  - base-line
+  - text-bottom
+    - 字体混排时，一行中最大的字决定
+  - line-bottom
+    - 如果行高大于文字的高度就表示行的最低的线
+
+## line.html中表示的
+行内盒 inline-block 基线是根据里边文字最后一行对齐的
+添加vertical-align属性可以规定inline-block的对齐方式
+- vertical-align
+  - top
+    - line-top
+  - bottom
+    - line-bottom
+  - text-top
+  - text-bottom
