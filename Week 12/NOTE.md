@@ -72,8 +72,8 @@
     - 如果行高大于文字的高度就表示行的最低的线
 
 ## line.html中表示的
-行内盒 inline-block 基线是根据里边文字最后一行对齐的
-添加vertical-align属性可以规定inline-block的对齐方式
+- 行内盒 inline-block 基线是根据里边文字最后一行对齐的
+- 添加vertical-align属性可以规定inline-block的对齐方式
 - vertical-align
   - top
     - line-top
@@ -81,3 +81,20 @@
     - line-bottom
   - text-top
   - text-bottom
+
+# 4. CSS排版 | 正常流的块级排布
+
+## float与clear (浮动元素)
+- float与clear(浮动元素)严格意义上说，已经脱离正常流，但是是依附于正常流去定义的
+### float.html
+- float 属性会让元素浮动
+  - left right
+- clear 属性会让元素在浮动的方向（左右）上找出一个在交叉轴上（上下）的位置
+  - left right both
+### 使用clear实现float元素的换行效果（float2.html）
+- 在使用float作为布局的主要方式的时候，添加clear属性会实现类似于正常流中换行的效果，但是使用正常流中的`<br/>`是不能实现这个效果的，在float中
+### 谨慎使用float（float3.html）
+- 使用float是发生了一定的重排行为的（因为使用float挡住了首次排版的文字），所以要谨慎使用
+### Margin Collapse(边距折叠)( float4.html)
+- 指的当且仅当在一个BFC里，两个拥有margin属性的相邻的元素之间的margin会只保留最大的，而不是相加
+![Margin Collapse(边距折叠)](img/4.jpg)
