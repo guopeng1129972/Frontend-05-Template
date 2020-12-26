@@ -143,7 +143,7 @@ display: run-in (没见用过)
 - block box && overflow:visible
   - 里外都是BFC，并且overflow:visible
 ###### overflow:visible 超出不会被修剪
-### BDC合并的影响
+### BFC合并的影响
 - BFC合并与float
   - 设置overflow:visible的元素，会与float元素合并(bfc1.html）
   - 设置overflow不为visible的元素，会产生新的BFC结构(bfc1.html）
@@ -237,3 +237,19 @@ https://www.cnblogs.com/hnfxs/p/3148483.html
 - CSS语义化颜色
 - W3C主要支持HSL，但是可以转换两者
 - hsv.html的例子主要是说方便管理，改变颜色只需要设置色相值
+
+# 9. CSS动画与绘制 | 绘制
+
+## 绘制的分类
+- 几何图形
+  - border
+  - box-shadow
+  - border-radius
+- 文字
+  - font
+  - text-decoration
+- 位图
+  - background-image
+## 应用技巧
+- data uri, + svg
+- `data:image/svg+xml,<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><ellipse cx="300" cy="150" rx="200" ry="80" style="fill:rgb(200,100,50); stroke:rgb(0,0,100);stroke-width:2"/> </svg>`
