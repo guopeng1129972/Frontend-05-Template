@@ -166,3 +166,45 @@ display: run-in (没见用过)
   - 计算交叉轴方向
     - 根据每一行中最大元素尺寸计算行高
     - 根据行高flex-align和item-align，确定元素具体位置
+
+# 7. CSS动画与绘制 | 动画
+
+## Animation
+- @keyframes定义
+  - 使用keyframes和@rule定义关键帧
+  - from 相当于0%;to 相当于100%
+```css
+@keyframes mykf
+{
+from {background: red;} 
+to {background: yellow;} }
+```
+- animation:使用
+```css
+div{
+animation:mykf 5s infinite; }
+```
+### Animation 属性
+- animation-name 时间曲线
+- animation-duration 动画的时长
+- animation-timing-function 动画的时间曲线
+- animation-delay 动画开始前的延时
+- animation-iteration-count 动画的播放次数
+- animation-direction 动画的方向
+
+```css
+@keyframes mykf {
+0% { top: 0; transition:top ease}
+50% { top: 30px;transition:top ease-in } 
+75% { top: 10px;transition:top ease-out } 
+100% { top: 0; transition:top linear}
+}
+```
+## Transition
+### Transition属性
+- transition-property 要变换的属性
+- transition-duration 变换的时长
+- transition-timing-function 时间曲线
+- transition-delay 延迟
+
+### cubic-bezier
