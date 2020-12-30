@@ -50,3 +50,44 @@
   - `<`
 - `&quot;`
  - 引号`"`
+
+# 4. 浏览器API | DOM API
+
+## dom节点家族
+![DOM API](img/1.jpg)
+
+## 导航类操作
+- 选择节点有两种方式，按照node节点选择，按照元素节点选择
+- 按照节点选择容易选到空节点，但是是按照元素不会
+
+- 对于节点的操作
+  - parentNode 
+  - childNodes 
+  - firstChild
+  - lastChild
+  - nextSibling
+  - previousSibling
+- 对于元素的操作
+  - parentElement
+  - children
+  - firstElementChild
+  - lastElementChild
+  - nextElementSibling
+  - previousElementSibling
+
+## 修改操作
+
+- appendChild
+  - 插入到最后节点
+- insetBefore
+  - 插入到具体节点前
+- removeChild
+  - 无法移除自身，只能在父级上去操作
+- replaceChild
+
+## 高级操作
+- compareDocumentPosition 是一个用于比较两个节点中关系的函数。
+- contains 检查一个节点是否包含另一个节点的函数
+- isEqualNode 检查两个节点是否完全相同。
+- isSameNode 检查两个节点是否是同一个节点，实际上在JavaScript 中可以用“===”。
+- cloneNode 复制一个节点，如果传入参数 true，则会连同子元素 做深拷贝。
