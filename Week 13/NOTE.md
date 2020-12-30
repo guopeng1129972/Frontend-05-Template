@@ -91,3 +91,31 @@
 - isEqualNode 检查两个节点是否完全相同。
 - isSameNode 检查两个节点是否是同一个节点，实际上在JavaScript 中可以用“===”。
 - cloneNode 复制一个节点，如果传入参数 true，则会连同子元素 做深拷贝。
+
+# 5. 浏览器API | 事件API
+- 冒泡 一层一层的往外传
+  - 浏览器默认参数为false 这样复合人的直觉 
+- 捕获 有外向内去触发
+  - 肯定会发生的事件，从硬件层面去点击上来讲，你肯定要去先找出这个点，那就是捕获过程
+## addeventListener
+- 默认三个参数，最后一个参数的passive默认为true
+- 冒泡和捕获跟监听是没有关系的，加不加addeventListener都是会发生的
+- 默认为冒泡 是浏览器处理事件的一种机制 加不加都会触发
+## event.html
+
+- 默认冒泡，b先触发,默认false
+```js
+  var a= document.getElementById('a');
+  var b= document.getElementById('b');
+  a.addEventListener('click',function(){console.log(a)})
+  b.addEventListener('click',function(){console.log(b)})
+```
+- 添加捕获，true,a1先触发,b,b1以次触发，然后是a的冒泡
+```js
+  a.addEventListener('click',function(){console.log(a1)},true)
+  b.addEventListener('click',function(){console.log(b1)},true)
+```
+- 再次添加其他事件，都会在添加之后执行那就是a1先触发,b,b1,b3以次触发，然后是a的冒泡
+```js
+  b.addEventListener('click',function(){console.log(b3)})
+```
