@@ -16,3 +16,18 @@
 | <	| `&#60;`	| `&lt; `|
 | >	| `&#62;`	| `&gt; `|
 | 不断开空格(non-breaking space) | `&#160;` |	`&nbsp;` |
+# 2. 重学HTML | HTML标签语义
+
+- `<main></mian>` 放的主要部分 表示一个
+- `<hgroup></hgroup>` 标题组
+- `<abbr></abbr>` 表示缩写、简写 有title属性
+- `<strong></strong>` 表示重点 文章的重点
+- `<em></em>` 表示强调 语气上
+- `<figure></figure>` 用作文档中插图的图像
+- `<figcaption></figcaption>` 元素为 figure 添加标题
+- `<nav></nav>` nav 标签定义导航链接的部分。
+- `<dfn></dfn>` dfn表示定义当前的词
+- `<samp></samp>` 表示例子
+- `<pre></pre>` 表示引入代码
+- `<code></code>` 代码
+
