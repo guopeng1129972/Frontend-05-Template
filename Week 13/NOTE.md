@@ -31,3 +31,22 @@
 - `<pre></pre>` 表示引入代码
 - `<code></code>` 代码
 
+# 3. 重学HTML | HTML语法
+
+## 合法元素
+- Element: `<tagname>...</tagname> `
+- Text: text
+- Comment: `<!-- comments -->`
+- DocumentType: `<!Doctype html>`
+- ProcessingInstruction: `<?a 1?>`
+- CDATA:`<![CDATA[ ]]>`
+
+## 字符引用
+- `&#161;`
+  - 引用ASK编码&+数字
+- `&amp; `
+  - `&`符号
+- `&lt;`
+  - `<`
+- `&quot;`
+ - 引号`"`
