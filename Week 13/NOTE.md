@@ -175,3 +175,64 @@ range.setStart(document.getElementById('a').childNodes[1],0);
 ```js
 range.setStart(document.getElementById('a').childNodes[1].childNodes[0],3);
 ```
+
+# 7. 浏览器API | CSSOM
+
+## document.styleSheets
+- document.styleSheets
+  - 访问CSSDOM属性，是从document.styleSheets上获取
+  - stylesheet.html
+
+### Rules
+document.styleSheets的子类
+- document.styleSheets[0].cssRules
+  - 访问cssRules
+- document.styleSheets[0].insertRule("p { color:pink; }", 0)
+  - 添加CSS规则在指定的位置（0）
+- document.styleSheets[0].removeRule(2)
+  - 删除CSS规则在指定的位置（2）
+
+### Rule
+- CSSStyleRule
+  - 对应CSS rule
+- CSSCharsetRule
+  - 其他对应其他的at-rule
+- CSSImportRule
+- CSSMediaRule
+- CSSFontFaceRule
+- CSSPageRule
+- CSSNamespaceRule 
+- CSSKeyframesRule
+- CSSKeyframeRule
+- CSSSupportsRule
+- ......
+
+### CssStyleRule
+
+- selectorText String 
+  - 选择器部分（selectorText）比如 p
+- style K-V结构
+  - 样式部分（style）花括号部分内容{color:red;}
+
+### 使用styleSheets修改样式的有点
+
+- 可以批量修改
+  - styleSheet.html
+```js
+document.styleSheets[0].cssRules[0].style.color='blue';
+```
+
+### getComputedStyle
+- window.getComputedStyle(elt, pseudoElt); 
+  - 获取元素最终通过计算和渲染之后的CSS属性
+- elt 想要获取的元素
+- pseudoElt 可选，伪元素
+  - 获取伪元素最终通过计算和渲染之后的CSS属性
+```js
+//获取a元素最终的计算属性
+getComputedStyle(document.querySelector('a'))
+//获取a元素的伪元素最终的计算属性
+getComputedStyle(document.querySelector('a'),"::before")
+getComputedStyle(document.querySelector("a"),'::before').color //"rgb(0, 0, 255)"
+
+```
