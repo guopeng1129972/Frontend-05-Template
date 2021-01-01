@@ -236,3 +236,53 @@ getComputedStyle(document.querySelector('a'),"::before")
 getComputedStyle(document.querySelector("a"),'::before').color //"rgb(0, 0, 255)"
 
 ```
+# 8. 浏览器API | CSSOM View
+CSSOM View 浏览器API
+
+## window
+
+- window.innerHeight, window.innerWidth 
+  - html所占据的内容
+- window.outerWidth, window.outerHeight 
+  - 浏览器窗口总共占据的空间
+- window.devicePixelRatio
+  - 屏幕上的机器物理像素（重要 理论上1px=1px物理像素，在不同的硬件设备上会有不同的比值）
+- window.screen
+  - window.screen.width
+  - window.screen.height
+    - 实际屏幕的宽和高
+  - window.screen.availWidth 
+  - window.screen.availHeight
+    - 实际屏幕可以使用的宽和高
+
+## Window API
+打开一个新窗口会使用到的api
+- window.open("about:blank", "_blank" ,"width=100,height=100,left=100,right=100" )
+  - 打开一个窗口（一般只有前两个参数，第三个参数指定大小）
+- moveTo(x, y)
+- moveBy(x, y)
+- resizeTo(x, y)
+- resizeBy(x, y)
+  - 如果这个窗口是你创建的，那么就可以调用下面4个方法，来改变窗口
+
+## scroll
+只有当有滚动条的时候才有scroll
+- scrollTop
+- scrollLeft
+- scrollWidth
+- scrollHeight
+- scroll(x, y)
+- scrollBy(x, y)
+- scrollIntoView()
+## window 
+- scrollX 
+- scrollY
+- scroll(x, y)
+- scrollBy(x, y)
+
+## layout
+dom上的元素都可以使用两个方法,返回一个包含元素的类数组
+- getClientRects()
+  - 取出元素上所有生成的盒
+- getBoundingClientRect()
+  - 取出元素上所有生成的盒(以一个表示)
