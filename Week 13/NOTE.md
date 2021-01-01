@@ -119,3 +119,59 @@
 ```js
   b.addEventListener('click',function(){console.log(b3)})
 ```
+# 6. 浏览器API | Range API
+
+## 问题 把一个元素所有的子元素逆序（DOM操作），把12345变为54321
+  - node节点操作，需要4次操作
+  - 两个考点
+    - reverse0.html
+      - DOM的collection，是动态的，取出来之后的nodelist是会变化的
+    - reverse1.html
+    - 元素的子元素在insert的时候，如果这个节点已经在dom树上，肯定会先remove下来，在append上去
+  - 使用range Api 进行高效操作dom
+
+## Range api 定义
+- var range = new Range()
+- range.setStart(element, 9)
+- range.setEnd(element, 4)
+  - 定义起始点终点
+- var range = document.getSelection().getRangeAt(0);
+
+## Range api 操作
+
+- range.setStartBefore 
+- range.setEndBefore 
+- range.setStartAfter
+- range.setEndAfter
+- range.selectNode
+- range.selectNodeContents
+  - 选中一个节点下面的内容
+
+## Range api 操作2
+- var fragment = range.extractContents()
+  - 相当于用range吧元素从dom树上摘下来
+  - range.extractContents的是一个fragment对象，在操作时，会把他所有的子元素作用到DOM上，而它本是不会
+- range.insertNode(document.createTextNode("aaaa"))
+  - 将元素节点添加到指定range上
+
+## range.html
+```js
+//指定range的起始点与终点
+ let range=new Range();
+//  第0个子元素的第3个位置
+  range.setStart(document.getElementById('a').childNodes[0],3);
+  range.setEnd(document.getElementById('a').childNodes[2],3);
+```
+- range.extractContents() 移除
+```js
+range.extractContents()
+```
+- 移除span标签内容
+```js
+//指定range的起始点为第1个子元素的第0位开始， 然后移除
+range.setStart(document.getElementById('a').childNodes[1],0);
+```
+- 移除第1个元素的半个 标签 只需要选到1的子元素的具体的那个店
+```js
+range.setStart(document.getElementById('a').childNodes[1].childNodes[0],3);
+```
