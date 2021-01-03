@@ -286,3 +286,17 @@ dom上的元素都可以使用两个方法,返回一个包含元素的类数组
   - 取出元素上所有生成的盒
 - getBoundingClientRect()
   - 取出元素上所有生成的盒(以一个表示)
+
+# 9. 浏览器API | 其它API
+
+## 标准化组织
+
+- khronos
+  - WebGL
+- ECMA
+  - ECMAScript
+- WHATWG
+  - HTML
+- W3C
+  - webaudio
+  - CG/WG
