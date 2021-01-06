@@ -129,5 +129,30 @@ input.getAttribute(‘value’); // cute
 </my-list>
 ```
 
+# 2. 组件的基本知识 | 为组件添加JSX语法
+
+## `jsx` 项目
+- 初始化
+```bash
+npm init -y
+npm install -g webpack webpack-cli
+webpack --version
+//5.11.1
+//装webpack babel-loader --save-dev
+npm install --save-dev webpack babel-loader
+```
+- 安装babel依赖
+ - 装 `@babel/preset-env `转es5
+```bash
+npm install --save-dev @babel/core @babel/preset-env
+```
+  - 装 `@babel/plugin-transform-react-jsx` 转换jsx
+```bash
+npm install --save-dev @babel/plugin-transform-react-jsx
+```
+这样编译好的main.js就会是有
+```js
+React.createElement(\"div\", null);
+```
 
 

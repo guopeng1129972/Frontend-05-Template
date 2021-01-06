@@ -1,6 +1,8 @@
 .DS_Store
-node_moudle
+node_modules
 .pdf
 # .vscode
 dome.txt
 viewport.jpg
+*/**/node_modules
+*/**/dist
