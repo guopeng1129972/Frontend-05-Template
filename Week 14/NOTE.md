@@ -154,5 +154,7 @@ npm install --save-dev @babel/plugin-transform-react-jsx
 ```js
 React.createElement(\"div\", null);
 ```
-
+# 3. 组件的基本知识 | JSX的基本使用方法
+写到jsx/NOTE.MD里了 主要就是创建main.js方法，按照教的一步一步来的
+ 
 
