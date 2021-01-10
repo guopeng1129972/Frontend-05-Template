@@ -1,76 +1,35 @@
-for (let i of [1, 2, 3]) {
-  console.log(i);
-}
 
-function createElement(type, attributes, ...children) {
-  let element;
-  if (typeof type === "string") {
-    element = new ElementWrapper(type);
-  }
-  else
-    element = new type;
-  for (let name in attributes) {
-    element.setAttribute(name, attributes[name]);
-  }
-  for (let child of children) {
-    if (typeof child === "string") {
-      child = new TextWrapper(child);
-    }
-    element.appendChild(child);
-  }
-  return element;
-}
- 
-class ElementWrapper {
-  constructor(type){
-    this.root=document.createElement(type);
-  }
-  setAttribute(name,value){
-    this.root.setAttribute(name,value);
-  }
-  appendChild(child){
-    child.mountTo(this.root);
-  }
-  mountTo(parent){
-    parent.appendChild(this.root);
-  }
-}
-
-class TextWrapper {
-  constructor(content){
-    this.root=document.createTextNode(content);
-  }
-  setAttribute(name,value){
-    this.root.setAttribute(name,value);
-  }
-  appendChild(child){
-    child.mountTo(this.root);
-  }
-  mountTo(parent){
-    parent.appendChild(this.root);
-  }
-}
-class Div {
+import {Component,createElement} from "./framework.js";
+class Carousel extends Component {
   constructor(){
-    this.root=document.createElement("div");
+   super();
+   this.attribute=Object.create(null);
   }
   setAttribute(name,value){
-    this.root.setAttribute(name,value);
+    this.attribute[name]=value;
   }
-  appendChild(child){
-    child.mountTo(this.root);
+  render(){
+    console.log(123);
+    console.log(this.attribute.src);
+   this.root= document.createElement("div");
+   for(let record of this.attribute.src){
+     let child=document.createElement("img");
+     child.src=record;
+    this.root.appendChild(child);
+   }
+   return this.root;
   }
   mountTo(parent){
-    parent.appendChild(this.root);
+    parent.appendChild(this.render());
   }
 }
 
-let a = <div id = "a" >
-  <span> 1 </span> 
-  <span> 2 </span> 
-  <span> 3 </span> 
-  </div>
+let d=[
+  "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2254230662,1479924568&fm=26&gp=0.jpg",
+  "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1828617116,965098140&fm=26&gp=0.jpg",
+  "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2135378476,4132922244&fm=26&gp=0.jpg",
+  "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1228962689,1071890439&fm=11&gp=0.jpg"
+]
 
-
-// document.body.appendChild(a);
+let a=<Carousel src={d}/>;
 a.mountTo(document.body);

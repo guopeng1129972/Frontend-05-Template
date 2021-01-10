@@ -157,4 +157,16 @@ React.createElement(\"div\", null);
 # 3. 组件的基本知识 | JSX的基本使用方法
 写到jsx/NOTE.MD里了 主要就是创建main.js方法，按照教的一步一步来的
  
+# 4. 轮播组件 | 轮播组件（一）
+
+- 便与调试 安装 `webpack-dev-server` 自动watch
+```bash
+npm install webpack-dev-server --save-dev
+# 依赖webpack-cli
+npm install webpack-cli --save-dev
+# 运行
+node_modules/.bin/webpack-dev-server
+# 或者 配置package.json
+```
+- class Carousel 中调用了super() 就去掉了Component里的this.root=this.render();的调用
 
