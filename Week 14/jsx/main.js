@@ -16,13 +16,30 @@ class Carousel extends Component {
       //  child.style.display="none";
       this.root.appendChild(child);
     }
+
+    let position=0;
     this.root.addEventListener('mousedown',event=>{
+      let children=this.root.children;
       console.log('mousedown');
+      let startX=event.clientX;
+      // let startY=event.clientY; 用不到Y轴
       let move =event =>{
         console.log("mousemove");
+        let x=event.clientX-startX;
+        // let y=event.clientY-startY; 用不到Y轴
+        for(let child of children){
+          child.style.transition="none";
+          child.style.transform=`translateX(${-position*500+ x}px)`;
+        }
       };
       let up =event=>{
         console.log("mouseup");
+        let x=event.clientX-startX;
+        position=position-Math.round(x/500);
+        for(let child of children){
+          child.style.transition="";
+          child.style.transform=`translateX(${-position*500}px)`;
+        }
         document.removeEventListener("mousemove",move);
         document.removeEventListener("mouseup",up);
       };
