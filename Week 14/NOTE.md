@@ -170,3 +170,71 @@ node_modules/.bin/webpack-dev-server
 ```
 - class Carousel 中调用了super() 就去掉了Component里的this.root=this.render();的调用
 
+
+# 5. 轮播组件 | 轮播组件（二）
+
+- 不建议使用img作为轮播图，因为img可以拖拽
+```diff
+ for(let record of this.attribute.src){
+-     let child=document.createElement("img");
+-     child.src=record;
++     let child=document.createElement("div");
++     child.style.backgroundImage=`url('${record}')`;
+    this.root.appendChild(child);
+   }
+```
+- 当你需要一个数在1~n之间循环，就需要对n取余就可以了；
+```js
+let current=0;
+++current;
+current=current%children.length;
+```
+- 在js中对元素的CSS设置为空（不是none），则CSS里的样式就会生效
+```js
+next.style.transtaion='';
+```
+- 轮播图就只需要考虑当前是那张图片，下一张是哪张图片，找出这个图片的时间设置为渲染一帧的时间
+```js
+    let currentIndex=0;
+    setInterval(() => {
+      let children = this.root.children;
+      let nextIndex=(currentIndex + 1) %children.length;
+
+      let current =children[currentIndex];
+      let next=children[nextIndex];
+      
+      next.style.transition ='none';
+      next.style.transform=`translateX(${100 - nextIndex * 100}%)`;
+      setTimeout(()=>{
+        next.style.transition='';
+        current.style.transform=`translateX(${-100 - currentIndex * 100}%)`;
+        next.style.transform=`translateX(${- nextIndex * 100}%)`;
+
+        currentIndex=nextIndex;
+      },16);
+    }, 3000);
+    return this.root;
+
+```
+- 浏览器渲染一帧的时间为16毫秒
+## 添加手动操作逻辑
+- mousemove mouseup 应该监听在mousedown的事件下
+- mousedown应该是元素事件,mousemove mouseup 应该监听在document上，这样鼠标移出浏览器也会监听得到
+```js
+    this.root.addEventListener('mousedown',event=>{
+      console.log('mousedown');
+      //设定move up方法 响应 move up事件
+      let move =event =>{
+        console.log("mousemove");
+      };
+      let up =event=>{
+        console.log("mouseup");
+        document.removeEventListener("mousemove",move);
+        document.removeEventListener("mouseup",up);
+      };
+      document.addEventListener("mousemove",move);
+      document.addEventListener("mouseup",up);
+
+    });
+
+```
