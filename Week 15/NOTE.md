@@ -29,3 +29,8 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 ```
 
 - 设置暂停和继续
+
+# 4. 手势与动画 | 完善动画的其他功能
+- 设置`timingFunction`和`template`的默认属性
+- 设置重置
+  - 虽然时间线上是重置了，但是动画上没有归到原位上

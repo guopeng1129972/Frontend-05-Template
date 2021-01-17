@@ -64,3 +64,37 @@ if (this[START_TIME].get(animation) < startTime)
 else
   t = now - this[START_TIME].get(animation) - this[PAUSE_TIME];
 ```
+# 4. 手势与动画 | 完善动画的其他功能
+- 消耗的时间需要再减去animation.delay
+```js
+if (this[START_TIME].get(animation) < startTime){
+  t = now - startTime - this[PAUSE_TIME] - animation.delay;}
+  else{
+  t = now - this[START_TIME].get(animation) - this[PAUSE_TIME] - animation.delay;
+}
+```
+- 如果时间不大于0，说明动画没走，不能走时间线
+```js
+  if (t > 0)
+    animation.receive(t);
+```
+- 设置`timingFunction`和`template`的默认属性
+```js
+    timingFunction = timingFunction || (v => v);
+    template = template || (v => v);
+```
+- ease.js
+好像反过去了，运动轨迹
+- 重启
+```js
+  //重启
+  reset() {
+    this.pause();
+    let startTime=Date.now();
+    this[PAUSE_TIME]=0;
+    this[ANIMATIONS]=new Set();
+    this[START_TIME]=new Map();
+    this[PAUSE_START]=0;
+    this[TICK_HANDLER]=null;
+  }
+```
