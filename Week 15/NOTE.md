@@ -34,3 +34,4 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 - 设置`timingFunction`和`template`的默认属性
 - 设置重置
   - 虽然时间线上是重置了，但是动画上没有归到原位上
+# 5. 手势与动画 | 对时间线进行状态管理
