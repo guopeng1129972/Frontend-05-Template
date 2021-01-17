@@ -33,3 +33,14 @@ setInterval(() => {}, 16);
 ## 帧动画
 - 一帧一帧的动画变化，一秒来一帧
 
+# 2. 手势与动画 | 设计时间线的更新
+- 当参数少于两个时，根据参数长度，添加不同的处理逻辑
+```js
+  add(animation,addTime) {
+    if(arguments.length<2){
+      addTime=Data.now();
+    }
+    this[ANIMATIONS].add(animation);
+    this[ADD_TIME].set(animation,addTime);
+  }
+```
