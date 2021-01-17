@@ -17,3 +17,15 @@ pos=(pos+children.length)%children.length;
 # 2. 手势与动画 | 设计时间线的更新
 
 - 添加 多个动画运行时，起始时间不一致的问题
+
+# 3. 手势与动画 | 给动画添加暂停和重启功能
+- 引入的一个问题，因为浏览器不能识别script的类型
+```bash
+Uncaught SyntaxError: Cannot use import statement outside a module
+```
+解决办法是设置引入的类型
+```html
+ <script type="module" src="./animation-demo.js"></script>
+```
+
+- 设置暂停和继续

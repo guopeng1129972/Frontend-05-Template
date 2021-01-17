@@ -44,3 +44,23 @@ setInterval(() => {}, 16);
     this[ADD_TIME].set(animation,addTime);
   }
 ```
+# 3. 手势与动画 | 给动画添加暂停和重启功能
+- 设置暂停和继续
+```js
+  pause() {
+    this[PAUSE_START] = Date.now();
+    cancelAnimationFrame(this[TICK_HANDLER]);
+  }
+  //恢复
+  resume() {
+    this[PAUSE_TIME] += Date.now() - this[PAUSE_START];
+    this[TICK]();
+  }
+```
+  - 在计算t的时候需要再减去暂停的时间
+```js
+if (this[START_TIME].get(animation) < startTime)
+  t = now - startTime - this[PAUSE_TIME];
+else
+  t = now - this[START_TIME].get(animation) - this[PAUSE_TIME];
+```
