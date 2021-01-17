@@ -5,4 +5,4 @@ node_modules
 dome.txt
 viewport.jpg
 */**/node_modules
-*/**/dist
+*/**/dist/main.js

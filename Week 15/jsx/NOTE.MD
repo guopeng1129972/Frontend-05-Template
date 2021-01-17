@@ -1,35 +1,35 @@
-# mian.js
-- init
+# animation.js
+## js处理动画
+- 三种常用的js处理动画的方法
 ```js
-for(let i of [1,2,3]){
-  console.log(i);
+//1.setInterval
+// 缺点
+/* 
+  1.比较不可控 不能确定浏览器是否是按照16毫秒去实现的
+  2.如果setInterval写的不好，可能会发生积压，具体取决于浏览器底层实现
+ */
+setInterval(() => {}, 16);
+
+// 2.setTimeout1 
+// 因为setTimeout只执行一次，所以需要 一个方法触发此事件
+{
+  let tick = () => {
+    setTimeout(() => {}, 16);
+  }
 }
-
-function createElement(type,attributes,...children){
-  let element=document.createElement(type);
-  for(let name in attributes){
-    element.setAttribute(name,attributes[name]);
+// 3.setTimeout2 推荐使用这种
+// 因为setTimeout只执行一次，所以需要 一个方法触发此事件
+// requestAnimationFrame() 返回浏览器渲染下一帧
+//cancelAnimationFrame(hander); cancel掉，避免资源浪费
+{
+  let tick = () => {
+    let hander=requestAnimationFrame(tick);
+    cancelAnimationFrame(hander);
   }
-  for(let child of children){
-    element.appendChild(child);
-  }
-  return element;
 }
-
-let a= <div id="a">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  document.body.appendChild(a);
 ```
-- 添加字符节点
-```diff
-  for(let child of children){
--    element.appendChild(child);
-+ if(typeof child ==="string"){
-+      child=document.createTextNode(child);
-+    }
-  }
-```
+## 属性动画
+- 描述属性的变化，产生的动画
+## 帧动画
+- 一帧一帧的动画变化，一秒来一帧
+
