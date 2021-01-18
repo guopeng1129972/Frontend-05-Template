@@ -53,3 +53,8 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 - start -0.5s按压>press start-end> press end
   - 按压屏幕
 ![手势触发事件](img/1.jpg)
+# 7. 手势与动画 | 实现鼠标操作
+- 统一处理mouse 与touch实践
+- 在相关事件中，去单独处理，这样简单
+- touch事件比鼠标事件多了个touchcancel,描述事件非法结束
+  - 一个队列外的事件有可能打破touch事件队列setTimeout队列的事件

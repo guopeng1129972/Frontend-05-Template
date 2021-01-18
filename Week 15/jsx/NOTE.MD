@@ -104,3 +104,4 @@ if (this[START_TIME].get(animation) < startTime){
 # 6. 手势与动画 | 手势的基本知识
 - 手势的 start move end
 - 鼠标的 down move up
+# 7. 手势与动画 | 实现鼠标操作
