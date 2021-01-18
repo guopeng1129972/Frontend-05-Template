@@ -35,3 +35,21 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 - 设置重置
   - 虽然时间线上是重置了，但是动画上没有归到原位上
 # 5. 手势与动画 | 对时间线进行状态管理
+- 添加状态管理
+# 6. 手势与动画 | 手势的基本知识
+这只涉及单指事件
+- start -> end 
+  - 直接触发之后结束
+  - 一次触发称为一次tap，类似于click事件
+- start -> 移动10px -> pan start - move > pan -end> pan end
+  - 一倍屏5px,3倍屏15px
+  - pan 是一个摄影术语，表示一次移动摄像机
+  - pan start 之后每一次move都会触发pan事件
+  - end触发 pan end 事件
+- start -> 移动10px -> pan start - move > pan -end且速度大于?> flick
+  - 如果end的速度大于？某个值，则称为一个flick(扫过)
+  - swipe 扫过一下 此处称为flick 
+- start -0.5s按压>press start -move 10px>pan start
+- start -0.5s按压>press start-end> press end
+  - 按压屏幕
+![手势触发事件](img/1.jpg)

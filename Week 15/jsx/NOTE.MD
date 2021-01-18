@@ -101,3 +101,6 @@ if (this[START_TIME].get(animation) < startTime){
 # 5. 手势与动画 | 对时间线进行状态管理
 - 添加状态管理
   - 这样的好处在于可以重复触发事件的时候，能保持在一个正确的状态内，不容易出错
+# 6. 手势与动画 | 手势的基本知识
+- 手势的 start move end
+- 鼠标的 down move up
