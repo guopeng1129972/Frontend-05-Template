@@ -13,3 +13,15 @@ element.addEventListener('touchstart',event=>{
 ```bash
 setTimeout(()=>alert(1),3000);
 ```
+# 8. 手势与动画 | 实现手势的逻辑
+- 设置定时器时候，把它再置位null(`handler=null;`)，clear的时候就避免错误
+```js
+  handler = setTimeout(() => {
+    isPan=false;
+    isTap=false;
+    isPress=true;  
+    console.log("press");
+    handler=null;
+  }, 500);
+
+```

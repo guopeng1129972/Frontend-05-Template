@@ -58,3 +58,6 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 - 在相关事件中，去单独处理，这样简单
 - touch事件比鼠标事件多了个touchcancel,描述事件非法结束
   - 一个队列外的事件有可能打破touch事件队列setTimeout队列的事件
+
+# 8. 手势与动画 | 实现手势的逻辑
+- 按照手势的逻辑完成代码
