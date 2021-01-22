@@ -106,3 +106,31 @@ while (button <= event.buttons) {
     isListeningMouse=true;
   }
 ```
+# 10. 手势与动画 | 派发事件
+- 注册事件直接`new Event(type)`就可以了
+  - 这块要用`for in`因为`properties`不一定可以枚举
+```js
+function dispatch(type,properties){
+  let event=new Event(type);
+  for(let name in properties){
+    event[name]=properties[name];
+  }
+  element.dispatchEvent(event);
+  // console.log(event);
+}
+```
+  - end之后
+```js
+  if (context.isTap) {
+    dispatch("tap",{});
+    clearTimeout(context.handler);
+  }
+```
+- 监听 创建
+```html
+<script>
+  document.documentElement.addEventListener('tap',()=>{
+    console.log("tap event trigger!");
+  })
+</script>
+```
