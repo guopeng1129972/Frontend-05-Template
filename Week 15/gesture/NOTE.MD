@@ -134,3 +134,5 @@ function dispatch(type,properties){
   })
 </script>
 ```
+# 11. 手势与动画 | 实现一个flick事件
+- 需要判断速度的事件

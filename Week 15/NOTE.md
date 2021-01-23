@@ -63,3 +63,4 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 - 按照手势的逻辑完成代码
 # 9. 手势与动画 | 处理鼠标事件
 * [写在gesture里面了](./jsx/NOTE.MD);
+# 11. 手势与动画 | 实现一个flick事件

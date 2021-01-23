@@ -1,6 +1,6 @@
 let element = document.documentElement;
 
-let isListeningMouse=false;
+let isListeningMouse = false;
 element.addEventListener("mousedown", event => {
   // console.log(event.button);
   let context = Object.create(null);
@@ -18,8 +18,8 @@ element.addEventListener("mousedown", event => {
           key = 2;
         else
           key = button;
-          contexts.get("mouse" + key);
-          move(event,context);
+        contexts.get("mouse" + key);
+        move(event, context);
       }
       button = button << 1;
     }
@@ -28,16 +28,16 @@ element.addEventListener("mousedown", event => {
     let context = contexts.get("mouse" + (1 << event.button));
     end(event, context);
     contexts.delete("mouse" + (1 << event.button));
-    if(isListeningMouse){
+    if (isListeningMouse) {
       document.removeEventListener('mousemove', mousemove);
       document.removeEventListener('mouseup', mouseup);
-      isListeningMouse=false;
+      isListeningMouse = false;
     }
   };
-  if(!isListeningMouse){
+  if (!isListeningMouse) {
     document.addEventListener('mousemove', mousemove);
     document.addEventListener('mouseup', mouseup);
-    isListeningMouse=true;
+    isListeningMouse = true;
   }
 });
 
@@ -77,6 +77,11 @@ element.addEventListener('touchcancel', event => {
 let start = (point, context) => {
   // console.log('start',point.clientX,point.clientY);
   context.startX = point.clientX, context.startY = point.clientY;
+  context.points = [{
+    t: Date.now(),
+    x: point.clientX,
+    y: point.clientY
+  }];
   context.isPan = false;
   context.isTap = true;
   context.isPress = false;
@@ -104,12 +109,19 @@ let move = (point, context) => {
     console.log(dx, dy);
     console.log("pan");
   }
+  context.points = context.points.filter(point => Date.now() - point.t < 500);
+
+  context.points.push({
+    t: Date.now(),
+    x: point.clientX,
+    y: point.clientY
+  });
 };
 
 let end = (point, context) => {
   // console.log('end', point.clientX, point.clientY);
   if (context.isTap) {
-    dispatch("tap",{});
+    dispatch("tap", {});
     clearTimeout(context.handler);
   }
   if (context.isPan) {
@@ -118,7 +130,22 @@ let end = (point, context) => {
   if (context.isPress) {
     console.log("pressed");
   }
-
+  context.points = context.points.filter(point => Date.now() - point.t < 500);
+  let d, v;
+  if (!context.points.length) {
+    v = 0;
+  } else {
+    d = Math.sqrt((point.clientX - context.points[0].x) ** 2 + 
+    (point.clientY - context.points[0].y) ** 2);
+    v = d / (Date.now() - context.points[0].t);
+  }
+  console.log(v);
+  if(v>1.5){
+    console.log("flick  速度大于1.5xp/ms 为一次flick");
+    context.isFlick=true;
+  }else{
+    context.isFlick=false;
+  }
 };
 
 let cancel = (point, context) => {
@@ -126,10 +153,10 @@ let cancel = (point, context) => {
   clearTimeout(context.handler);
 };
 
-function dispatch(type,properties){
-  let event=new Event(type);
-  for(let name in properties){
-    event[name]=properties[name];
+function dispatch(type, properties) {
+  let event = new Event(type);
+  for (let name in properties) {
+    event[name] = properties[name];
   }
   element.dispatchEvent(event);
   // console.log(event);
