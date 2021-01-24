@@ -136,3 +136,14 @@ function dispatch(type,properties){
 ```
 # 11. 手势与动画 | 实现一个flick事件
 - 需要判断速度的事件
+
+# 12. 手势与动画 | 封装
+- listen=>recognize=>dispatch
+- 调用方法
+```js
+new Listener(new Recognizer(dispatch))
+```
+
+- 使用webserver(ws)模拟 需要安装express模块、ws模块
+  - node 启动 `server.js`  在域名下访问
+    - `http://localhost:8002/gesture.html`
