@@ -72,3 +72,19 @@ this.yarnInstall();
 
 - CopyWebpackPlugin
 https://www.webpackjs.com/plugins/copy-webpack-plugin/
+
+# 4. 初始化与构建 | Webpack基本知识
+- webpack依赖webpack-cli才能运行
+- 如果不想全局安装， 全局不安装webpack 
+- 本地安装webpack-cli, npx webpack 可以运行
+
+```bash
+sudo npm uninstall webpack webpack-cli -g 
+npm install webpack-cli --save-dev
+sudo npm install webpack webpack-cli -g 
+```
+# 5. 初始化与构建 | Babel基本知识
+```bash
+sudo npm install -g @babel/core
+sudo npm install -g @babel/cli
+```
