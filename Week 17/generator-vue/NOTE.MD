@@ -69,3 +69,6 @@ this.yarnInstall();
 // yarn add
 ```
 # 3. 初始化与构建 | 初始化工具Yeoman（三）
+
+- CopyWebpackPlugin
+https://www.webpackjs.com/plugins/copy-webpack-plugin/
