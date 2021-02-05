@@ -34,3 +34,32 @@ describe('add function testing ',function(){
 - `describe`这个方法就是将测试的信息分块显示 好看一些
 - 为了配合mocha 测试的内容需要module.exports=add;
 - 要想使用常规的export add 需要使用babel
+
+# 2. 单元测试工具 | Mocha（二）
+- 使用babel的解决方案
+```bash
+npm install --save-dev @babel/core @babel/register 
+```
+- 创建`.babelrc` 指定babel的配置
+```bash
+npm install --save-dev @babel/preset-env
+```
+- 如果想用export的模式 test.js中的引用也应该改成import的模式
+```js
+import {add} from '../add';
+```
+- 本地 执行 测试
+```bash
+./node_modules/.bin/mocha --require @babel/register
+```
+- 将执行命令添加到package.json里
+  - package.json默认的会指向在当前的本地目录里
+```js
+ "scripts": {
+    "test": "mocha --require @babel/register"
+  },
+```
+- 执行
+```bash
+npm run test
+```
