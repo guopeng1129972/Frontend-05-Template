@@ -63,3 +63,17 @@ import {add} from '../add';
 ```bash
 npm run test
 ```
+
+# 3. 单元测试工具 | code coverage
+```bash
+npm install --save-dev nyc
+//本地运行
+npx nyc ./node_modules/.bin/mocha --require @babel/register
+
+```
+- 使用nyc babel 需要给nyc 与babel互相装一个插件
+- `.nycrc`
+```bash
+npm install --save-dev @istanbuljs/nyc-config-babel
+npm install --save-dev babel-plugin-istanbul
+```
