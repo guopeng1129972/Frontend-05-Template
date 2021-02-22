@@ -49,3 +49,10 @@ npx eslint index.js
 ```
 eslint就是这么检查文件的
 
+# 4. 持续集成 | ESLint API及其高级用法
+- pre-commit 
+```js
+  await exec("git stash push -k");
+  const results = await eslint.lintFiles(["index.js"]);
+  await exec("git stash pop");
+```
