@@ -56,3 +56,20 @@ eslint就是这么检查文件的
   const results = await eslint.lintFiles(["index.js"]);
   await exec("git stash pop");
 ```
+# 5. 持续集成 | 使用无头浏览器检查DOM
+- 设置chrome
+- https://developers.google.com/web/updates/2017/04/headless-chrome
+```bash
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+# 启动无头浏览器
+chrome --headless
+# 打印
+chrome --headless --disable-gpu --dump-dom about:blank >tem.txt
+
+```
+```bash
+mkdir headless-demo
+cd headless-demo
+npm init -y
+npm install --save-dev puppeteer
+```
