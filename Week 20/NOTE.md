@@ -23,3 +23,29 @@ let process=require("process");
 process.exitCode=1;
 ```
    - pre-commit 就是git commit的时候执行的内容 
+# 3. 持续集成 | ESLint基本用法
+```bash
+mkdir eslint-demo
+npm init -y
+npm install --save-dev eslint
+npx eslint --init
+```
+- npx eslint --init 配置内容
+```bash
+✔ How would you like to use ESLint? · problems
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · react
+✔ Does your project use TypeScript? · No / Yes
+✔ Where does your code run? · browser
+✔ What format do you want your config file to be in? · JavaScript
+The config that you've selected requires the following dependencies:
+eslint-plugin-react@latest
+✔ Would you like to install them now with npm? · No / Yes
+```
+- touch index.js
+检查提交的文件
+```bash
+npx eslint index.js
+```
+eslint就是这么检查文件的
+
